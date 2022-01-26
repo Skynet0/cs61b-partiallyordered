@@ -27,6 +27,11 @@
           }
         ]
       },
+
+      chalkboard: {
+        readOnly: false,
+        storage: "disc_" + window.location.pathname.split("/")[2],
+      },
     });
 
     var options = {
