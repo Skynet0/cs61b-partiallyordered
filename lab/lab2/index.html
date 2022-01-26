@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lab 2 | Ethan's CS 61B Resources</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <link rel="stylesheet" href="/reveal.js/dist/reset.css" />
+    <link rel="stylesheet" href="/reveal.js/dist/reveal.css" />
+    <link rel="stylesheet" href="/reveal.js/dist/theme/simple.css" id="theme" />
+    <link rel="stylesheet" href="/reveal.js/plugin/chalkboard/style.css" />
+    <link rel="stylesheet" href="/reveal.js/plugin/customcontrols/style.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Inconsolata|Roboto:300,400,500|Work+Sans:400,700"
+    />
+    <link rel="stylesheet" href="/css/base.css" />
+    <link rel="stylesheet" href="/css/reveal-base.css" />
+    <link rel="stylesheet" href="/css/mono-code.css" />
+
+    <script src="/reveal.js/dist/reveal.js" defer></script>
+
+    <script src="/reveal.js/plugin/highlight/highlight.js" defer></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/highlightjs-badge@0.1.9/highlightjs-badge.min.js"
+      defer
+    ></script>
+
+    <script src="/reveal.js/plugin/chalkboard/plugin.js" defer></script>
+    <script src="/reveal.js/plugin/customcontrols/plugin.js" defer></script>
+    <script src="/reveal.js/plugin/menu/menu.js" defer></script>
+    <script src="/js/load_reveal.js" defer></script>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <h1>Lab 2</h1>
+          <h2>IntelliJ and IntLists</h2>
+          <aside>Starting at Berkeleytime</aside>
+        </section>
+        <section>
+          <h2>Announcements</h2>
+          <ol>
+            <li>
+              Lab 1, Lab 2, and HW 0 due Friday 1/28 (all of these CANNOT be
+              dropped)
+            </li>
+            <li>HW 1 released, due next Tuesday 2/1</li>
+            <li>
+              OH starts this week completely online - schedule on
+              <a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/"
+                >course website</a
+              >
+            </li>
+          </ol>
+        </section>
+        <section>
+          <h2>Lab Partners</h2>
+          <p>
+            For this lab, and most remaining labs, partners are allowed. Some
+            guidelines:
+          </p>
+          <ul>
+            <li>Only pairs, only for lab assignments</li>
+            <li>
+              Both students must commit and submit from their own repo, though
+              code may be identical.
+            </li>
+            <li>
+              Course staff will facilitate partner matching through
+              <a href="https://forms.gle/iYkPuUYS8H9FLN1S7">this form</a>. You
+              may also use the
+              <a href="https://piazza.com/class/kyhxhjauuc26wy?cid=5"
+                >Piazza Search for Teammates</a
+              >
+              feature.
+            </li>
+            <li>
+              If you have a partner, fill out <code>partner.txt</code>. Even if
+              you do not have a partner, don't delete the file!
+            </li>
+            <li>You may have different partners each week.</li>
+          </ul>
+        </section>
+        <section>
+          <h2>IntelliJ Setup Demo</h2>
+        </section>
+        <section>
+          <h2>IntList Overview</h2>
+          <pre class="code-pre">
+            <code class="java hljs" data-trim>
+              IntList L = new IntList(1, new IntList(2, new IntList(3, null)));
+            </code>
+          </pre>
+          <p>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 461.58 76.45">
+              <defs>
+                <style>
+                  .cls-1 {
+                    fill: none;
+                  }
+                  .cls-1,
+                  .cls-4,
+                  .cls-6 {
+                    stroke: #231f20;
+                    stroke-miterlimit: 10;
+                  }
+                  .cls-2 {
+                    font-size: 21.73px;
+                  }
+                  .cls-2,
+                  .cls-3,
+                  .cls-5,
+                  .cls-6,
+                  .cls-7 {
+                    fill: #231f20;
+                  }
+                  .cls-2,
+                  .cls-5,
+                  .cls-7 {
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  }
+                  .cls-4 {
+                    fill: none;
+                    stroke-width: 0.75px;
+                  }
+                  .cls-5 {
+                    font-size: 17.12px;
+                  }
+                  .cls-7 {
+                    font-size: 26px;
+                  }
+                </style>
+              </defs>
+              <g id="Layer_2" data-name="Layer 2">
+                <rect
+                  class="cls-1"
+                  x="239.71"
+                  y="0.5"
+                  width="49.4"
+                  height="49.4"
+                />
+                <rect
+                  class="cls-1"
+                  x="289.11"
+                  y="0.5"
+                  width="49.4"
+                  height="49.4"
+                />
+                <text class="cls-2" transform="translate(260.45 32.9)">2</text>
+                <line
+                  class="cls-3"
+                  x1="313.81"
+                  y1="25.2"
+                  x2="359.35"
+                  y2="25.2"
+                />
+                <line
+                  class="cls-4"
+                  x1="313.81"
+                  y1="25.2"
+                  x2="354.82"
+                  y2="25.2"
+                />
+                <path
+                  class="cls-3"
+                  d="M425.89,194a22.65,22.65,0,0,0-6.41,3.57l1.29-3.57-1.29-3.57A22.65,22.65,0,0,0,425.89,194Z"
+                  transform="translate(-66.55 -168.82)"
+                />
+                <text class="cls-5" transform="translate(245.24 68.61)">
+                  head
+                </text>
+                <text class="cls-5" transform="translate(296.68 67.94)">
+                  tail
+                </text>
+              </g>
+              <g id="Layer_3" data-name="Layer 3">
+                <rect
+                  class="cls-1"
+                  x="362.29"
+                  y="0.5"
+                  width="49.4"
+                  height="49.4"
+                />
+                <rect
+                  class="cls-1"
+                  x="411.68"
+                  y="0.5"
+                  width="49.4"
+                  height="49.4"
+                />
+                <text class="cls-2" transform="translate(383.02 32.9)">3</text>
+                <line
+                  class="cls-6"
+                  x1="411.68"
+                  y1="49.9"
+                  x2="461.08"
+                  y2="0.5"
+                />
+                <text class="cls-5" transform="translate(367.81 67.94)">
+                  head
+                </text>
+                <text class="cls-5" transform="translate(419.26 67.28)">
+                  tail
+                </text>
+              </g>
+              <g id="Layer_1" data-name="Layer 1">
+                <rect
+                  class="cls-1"
+                  x="117.14"
+                  y="0.5"
+                  width="49.4"
+                  height="49.4"
+                />
+                <rect
+                  class="cls-1"
+                  x="166.53"
+                  y="0.5"
+                  width="49.4"
+                  height="49.4"
+                />
+                <text class="cls-2" transform="translate(137.87 32.9)">1</text>
+                <line
+                  class="cls-3"
+                  x1="191.23"
+                  y1="25.2"
+                  x2="236.77"
+                  y2="25.2"
+                />
+                <line
+                  class="cls-4"
+                  x1="191.23"
+                  y1="25.2"
+                  x2="232.24"
+                  y2="25.2"
+                />
+                <path
+                  class="cls-3"
+                  d="M303.32,194a22.65,22.65,0,0,0-6.41,3.57L298.2,194l-1.29-3.57A22.65,22.65,0,0,0,303.32,194Z"
+                  transform="translate(-66.55 -168.82)"
+                />
+                <text class="cls-5" transform="translate(121.64 69.6)">
+                  head
+                </text>
+                <text class="cls-5" transform="translate(173.08 68.94)">
+                  tail
+                </text>
+              </g>
+              <g id="Layer_4" data-name="Layer 4">
+                <rect
+                  class="cls-1"
+                  x="27.11"
+                  y="0.5"
+                  width="49.4"
+                  height="49.4"
+                />
+                <line class="cls-3" x1="51.8" y1="26.2" x2="108.53" y2="26.2" />
+                <line class="cls-4" x1="51.8" y1="26.2" x2="104.01" y2="26.2" />
+                <path
+                  class="cls-3"
+                  d="M175.08,195a22.65,22.65,0,0,0-6.41,3.57L170,195l-1.29-3.56A22.87,22.87,0,0,0,175.08,195Z"
+                  transform="translate(-66.55 -168.82)"
+                />
+                <text class="cls-7" transform="translate(0 31.18)">L:</text>
+              </g>
+            </svg>
+          </p>
+          <div style="min-height: 159px;"></div>
+          <p>
+            A method can be <em>destructive</em> or <em>non-destructive</em>.
+          </p>
+          <p><b>Destructive:</b> modifies the object that was passed in</p>
+          <p>
+            <b>Non-destructive:</b> does <em>not</em> modify the object that was
+            passed in
+          </p>
+        </section>
+      </div>
+    </div>
+  </body>
+</html>

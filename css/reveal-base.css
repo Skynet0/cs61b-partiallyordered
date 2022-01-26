@@ -18,14 +18,14 @@
   display: block;
 }
 
-.reveal code {
+.reveal pre.code-pre > code {
   border-radius: 4px;
-  padding: 2px 4px;
+  padding: 4px 10px;
   max-height: fit-content !important;
 }
 
 .reveal pre.text-pre,
-.reveal code {
+.reveal pre.code-pre > code {
   font-size: 24px;
   line-height: 32px;
 }
@@ -38,14 +38,28 @@
   --r-main-color: #383838;
   --r-background-color: #e8e8e8;
 
-  /* TODO: figure this out - buttons should be grey, links should be blue. */
-  --r-link-color: #383838;
-  --r-link-color-hover: #383838;
+  --r-code-font: "Inconsolata", monospace;
+
+  --r-link-color: #0066cc;
+  --r-link-color-hover: #0066cc;
+}
+
+.slide-menu-button > a {
+  color: var(--r-main-color);
+}
+
+#customcontrols button {
+  color: var(--r-main-color);
+}
+
+.reveal .controls {
+  color: var(--r-main-color);
 }
 
 .code-badge {
   font-size: 12px !important;
   padding: 3px 4px 3px 4px !important;
+  border-radius: 0 2px 0 7px !important;
 }
 
 .code-badge-language {
