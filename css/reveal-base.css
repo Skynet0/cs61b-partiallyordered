@@ -38,6 +38,7 @@
   --r-main-color: #383838;
   --r-background-color: #e8e8e8;
 
+  /* TODO: figure this out - buttons should be grey, links should be blue. */
   --r-link-color: #383838;
   --r-link-color-hover: #383838;
 }
