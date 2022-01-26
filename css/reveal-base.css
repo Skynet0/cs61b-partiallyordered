@@ -56,6 +56,10 @@
   color: var(--r-main-color);
 }
 
+.reveal .progress {
+  color: var(--r-main-color);
+}
+
 .code-badge {
   font-size: 12px !important;
   padding: 3px 4px 3px 4px !important;
