@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Discussion 2 | Ethan's CS 61B</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+
+    <link rel="stylesheet" href="/reveal.js/dist/reset.css" />
+    <link rel="stylesheet" href="/reveal.js/dist/reveal.css" />
+    <link rel="stylesheet" href="/reveal.js/dist/theme/simple.css" id="theme" />
+    <link rel="stylesheet" href="/reveal.js/plugin/chalkboard/style.css" />
+    <link rel="stylesheet" href="/reveal.js/plugin/customcontrols/style.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Inconsolata|Roboto:300,400,500|Work+Sans:400,700"
+    />
+    <link rel="stylesheet" href="/css/base.css" />
+    <link rel="stylesheet" href="/css/reveal-base.css" />
+    <link rel="stylesheet" href="/css/mono-code.css" />
+
+    <script src="/reveal.js/dist/reveal.js" defer></script>
+
+    <script src="/reveal.js/plugin/highlight/highlight.js" defer></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/highlightjs-badge@0.1.9/highlightjs-badge.min.js"
+      defer
+    ></script>
+
+    <script src="/reveal.js/plugin/chalkboard/plugin.js" defer></script>
+    <script src="/reveal.js/plugin/customcontrols/plugin.js" defer></script>
+    <script src="/reveal.js/plugin/menu/menu.js" defer></script>
+    <script src="/js/load_reveal.js" defer></script>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <h1>Discussion 2</h1>
+        </section>
+        <section>
+          <h2>Announcements</h2>
+          <ol>
+            <li>
+              Lab 1, Lab 2, and HW 0 due Friday 1/28 (all of these CANNOT be
+              dropped)
+            </li>
+            <li>HW 1 released, due next Tuesday 2/1</li>
+            <li>OH starts this week completely online</li>
+          </ol>
+        </section>
+        <section>
+          <h2>Me!</h2>
+          <p>TODO</p>
+        </section>
+        <section>
+          <h2>From Python to Java</h2>
+          <div>
+            <p>Explicit types</p>
+            <div class="flex-container">
+              <div style="width: 46%">
+                <pre class="code-pre no-code-badge">
+                  <code class="python hljs" data-trim>
+                    variable = "Hello!"
+                  </code>
+                </pre>
+              </div>
+              <div style="width: 46%">
+                <pre class="code-pre no-code-badge">
+                  <code class="python hljs" data-trim>
+                    String variable = "Hello!";
+                  </code>
+                </pre>
+              </div>
+            </div>
+          </div>
+          <div class="fragment">
+            <p>Braces</p>
+            <div class="flex-container">
+              <div style="width: 46%">
+                <pre class="code-pre no-code-badge">
+                  <code class="python hljs" data-trim>
+                    if condition:
+                      do_something()
+                    elif condition2:
+                      do_something_2()
+                    else:
+                      do_something_else()
+                  </code>
+                </pre>
+              </div>
+              <div style="width: 46%">
+                <pre class="code-pre no-code-badge">
+                  <code class="java hljs no-code-badge" data-trim>
+                    if (condition) {
+                      do_something();
+                    } else if (condition2) {
+                      do_something2();
+                    } else {
+                      do_something_else();
+                    }
+                  </code>
+                </pre>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section>
+          <h2>Anatomy of a Function</h2>
+          <pre class="code-pre">
+            <code class="java hljs" data-line-numbers data-trim>
+              /** Print all primes up to and including LIMIT. */
+              private static void printPrimes(int limit) { 
+                for (int p = 2; p < = limit; p += 1) {
+                  if (isPrime(p)) { 
+                    System.out.print(p + " ");
+                  }
+                }
+                System.out.println();
+              }
+            </code>
+          </pre>
+        </section>
+        <section>
+          <h2>Anatomy of a Class</h2>
+          <pre class="code-pre">
+            <code class="java hljs" data-line-numbers data-trim>
+              public class CS61BStudent {
+                public int idNumber;
+                public int grade;
+                public static String professor = "Hilfinger";
+                public CS61BStudent(int id) {
+                  this.idNumber = id;
+                  this.grade = 100;
+                }
+                public void watchLecture() {
+                  // ...
+                }
+                public static String gradeToLetter(int grade) {
+                  // ...
+                }
+              }
+            </code>
+          </pre>
+        </section>
+        <section>
+          <h2>Instantiating + Using Classes</h2>
+          <pre class="code-pre">
+            <code class="java hljs" data-line-numbers data-trim>
+              public class CS61BLauncher {
+                public static void main(String[] args) {
+                  CS61BStudent studentOne;
+                  studentOne = new CS61BStudent(32259);
+                  CS61BStudent studentTwo = new CS61BStudent(19234);
+
+                  studentOne.watchLecture();
+
+                  System.out.println(CS61BStudent.gradeToLetter(85));
+                  // System.out.println(studentTwo.gradeToLetter(70));
+                }
+              }
+            </code>
+          </pre>
+        </section>
+        <section>
+          <h1>Worksheet</h1>
+        </section>
+        <section>
+          <h2>1. Old Town Code</h2>
+          <p>What does this output?</p>
+          <pre class="code-pre">
+            <code class="java hljs" style="font-size: 20px;"
+              data-line-numbers data-trim>
+              int x = 7;
+              String chorus = "Thank u, next";
+              Singer queen = new Singer("Ariana");
+
+              while (x > 0) {
+                  x -= 1;
+                  queen.sing(chorus);  // Returns a String, prints nothing
+              }
+
+              String[] phrases = {"love", "patience", "pain", "what does the fox say?"};
+
+              for (int i = 0; i < 3; i += 1) {
+                  System.out.println("One taught me " + phrases[i]);
+              }
+
+              System.out.println(phrases[phrases.length - 1]);
+            </code>
+          </pre>
+        </section>
+        <section>
+          <section>
+            <h2>2. Reading Code: A Mystery</h2>
+            <pre class="code-pre">
+              <code class="java hljs" data-line-numbers data-trim>
+                public static int mystery1(int[] inputArray, int k) {
+                  int x = inputArray[k];
+                  int answer = k; 
+                  int index = k + 1;
+                  while (index < inputArray.length) {
+                      if (inputArray[index] < x) {
+                          x = inputArray[index];
+                          answer = index;
+                      }
+                      index = index + 1;
+                  }
+                  return answer;
+                }
+              </code>
+            </pre>
+            <p>When this function is called with arguments:</p>
+            <ul>
+              <li><code>inputArray = [3, 0, 4, 6, 3]</code></li>
+              <li><code>k = 2</code></li>
+            </ul>
+            <p>what does it return? Describe the method in English.</p>
+          </section>
+          <section>
+            <h2>2. Reading Code: A Mystery (Extra)</h2>
+            <pre class="code-pre">
+              <code class="java hljs" data-line-numbers data-trim>
+                public static void mystery2(int[] inputArray) {
+                  int index = 0;
+                  while (index < inputArray.length) {
+                      int targetIndex = mystery1(inputArray, index);
+                      int temp = inputArray[targetIndex];
+                      inputArray[targetIndex] = inputArray[index];
+                      inputArray[index] = temp;
+                      index = index + 1;
+                  }
+                }
+              </code>
+            </pre>
+            <p>When this function is called with arguments:</p>
+            <ul>
+              <li><code>inputArray = [3, 0, 4, 6, 3]</code></li>
+            </ul>
+            <p>
+              and <code>mystery1</code> as defined before, what does it do?
+              Describe the method in English.
+            </p>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h2>3. Recursion Practice: Fibonacci</h2>
+            <p>
+              Implement a function <code>fib1</code> that recursively computes
+              the N-th Fibonacci number. As a reminder, the definition of the
+              N-th Fibonacci number is:
+            <p>
+              <p><code>fib(0) = 0</code></p>
+              <p><code>fib(1) = 1</code></p>
+              <p><code>fib(N) = fib(N - 1) + fib(N - 2)</code></p>
+            </p>
+            <pre class="code-pre no-code-badge">
+              <code class="java hljs" data-trim>
+                public static int fib1(int N) {
+
+
+
+
+
+
+
+
+                }
+              </code>
+            </pre>
+          </section>
+          <section>
+            <h3>3. Recursion Practice: Fibonacci (Extra)</h3>
+            <p>
+              Implement a function <code>fib2</code> that recursively computes
+              the N-th Fibonacci number without redundant computation. To compute the N-th Fibonacci number, we would call
+            </p>
+            <p><code>fib2(N, /*k=*/0, /*f0=*/0, /*f1=*/1)</code></p>
+            <p>Hint: Try writing the iterative version of <code>fib1</code> first.</p>
+            <pre class="code-pre no-code-badge">
+              <code class="java hljs" data-trim>
+                public static int fib1(int N, int k, int f0, int f1) {
+
+
+
+
+
+
+
+
+                }
+              </code>
+            </pre>
+          </section>
+        </section>
+      </div>
+    </div>
+  </body>
+</html>

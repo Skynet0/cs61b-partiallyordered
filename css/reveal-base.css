@@ -1,0 +1,56 @@
+.reveal .slides section {
+  text-align: left;
+  font-size: smaller;
+}
+
+.reveal pre.code-pre {
+  background-color: #dedede;
+  width: 100%;
+  border: 1px solid #bbb;
+  border-radius: 4px;
+  box-shadow: none;
+}
+
+.reveal pre.text-pre {
+  box-shadow: none;
+  font: inherit;
+  padding: 1em 0;
+  display: block;
+}
+
+.reveal code {
+  border-radius: 4px;
+  padding: 2px 4px;
+  max-height: fit-content !important;
+}
+
+.reveal pre.text-pre,
+.reveal code {
+  font-size: 24px;
+  line-height: 32px;
+}
+
+:root {
+  --r-heading-font: "Roboto", sans-serif;
+  --r-heading-color: #282828;
+
+  --r-main-font: "Work Sans", sans-serif;
+  --r-main-color: #383838;
+  --r-background-color: #e8e8e8;
+
+  --r-link-color: #383838;
+  --r-link-color-hover: #383838;
+}
+
+.code-badge {
+  font-size: 12px !important;
+  padding: 3px 4px 3px 4px !important;
+}
+
+.code-badge-language {
+  display: none;
+}
+
+.no-code-badge > .code-badge {
+  display: none;
+}
