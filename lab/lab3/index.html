@@ -1,0 +1,2255 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lab 2 | Ethan's CS 61B Resources</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <link rel="stylesheet" href="/reveal.js/dist/reset.css" />
+    <link rel="stylesheet" href="/reveal.js/dist/reveal.css" />
+    <link rel="stylesheet" href="/reveal.js/dist/theme/simple.css" id="theme" />
+    <link rel="stylesheet" href="/reveal.js/plugin/chalkboard/style.css" />
+    <link rel="stylesheet" href="/reveal.js/plugin/customcontrols/style.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Inconsolata|Roboto:300,400,500|Work+Sans:400,700"
+    />
+    <link rel="stylesheet" href="/css/base.css" />
+    <link rel="stylesheet" href="/css/reveal-base.css" />
+    <link rel="stylesheet" href="/css/mono-code.css" />
+
+    <script src="/reveal.js/dist/reveal.js" defer></script>
+
+    <script src="/reveal.js/plugin/highlight/highlight.js" defer></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/highlightjs-badge@0.1.9/highlightjs-badge.min.js"
+      defer
+    ></script>
+
+    <script src="/reveal.js/plugin/chalkboard/plugin.js" defer></script>
+    <script src="/reveal.js/plugin/customcontrols/plugin.js" defer></script>
+    <script src="/reveal.js/plugin/menu/menu.js" defer></script>
+    <script src="/js/load_reveal.js" defer></script>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <h1>Lab 2</h1>
+          <h2>IntDLists and Debugging</h2>
+          <aside>Starting at Berkeleytime</aside>
+        </section>
+        <section>
+          <h2>Announcements</h2>
+          <ol>
+            <li>Project 0 due next Friday 2/11 - start early!</li>
+            <li>Lab 3 due Friday 2/4 (Git checkoff on Gradescope)</li>
+            <li>HW 2 due next Tuesday 2/8</li>
+            <li>
+              Topical Review Session run by CS 61B tutors, Friday 2-3:30 PM (see
+              <a href="https://piazza.com/class/kyhxhjauuc26wy?cid=210"
+                >Week 3 Announcements</a
+              >)
+            </li>
+            <li>
+              AIs can answer setup / lab questions, but not project / hw
+              questions. GSIs can answer all questions, but will prioritize lab
+              questions
+            </li>
+          </ol>
+        </section>
+        <section>
+          <h2>Review: Linked Lists</h2>
+          <p>
+            A <strong>linked list</strong> (<code>IntList</code>) is a data
+            structure consisting of individual nodes that each contain two
+            fields:
+          </p>
+          <ul>
+            <li><code>head</code> holds a value</li>
+            <li>
+              <code>tail</code> holds a pointer to the next
+              <code>IntList</code>
+            </li>
+          </ul>
+          <pre class="code-pre">
+            <code class="java hljs" data-noescape data-trim>
+              IntList L = IntList.list(4, 1, 8);
+            </code>
+          </pre>
+          <p>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 292.2 140.73"
+              style="width: 100"
+            >
+              <g id="Layer_1" data-name="Layer 1">
+                <rect
+                  x="16.88"
+                  y="29.94"
+                  width="23.88"
+                  height="23.88"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <line
+                  x1="28.82"
+                  y1="42.37"
+                  x2="56.25"
+                  y2="42.37"
+                  style="fill: #231f20"
+                />
+                <line
+                  x1="28.82"
+                  y1="42.37"
+                  x2="50.87"
+                  y2="42.37"
+                  style="
+                    fill: none;
+                    stroke: #231f20;
+                    stroke-miterlimit: 10;
+                    stroke-width: 0.75px;
+                  "
+                />
+                <polygon
+                  points="49.77 46.11 56.25 42.37 49.77 38.63 49.77 46.11"
+                  style="fill: #231f20"
+                />
+                <text
+                  transform="translate(3.77 44.78)"
+                  style="
+                    font-size: 12.571783065795898px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  L:
+                </text>
+                <rect
+                  x="58.31"
+                  y="11.85"
+                  width="69.46"
+                  height="60.07"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <text
+                  transform="translate(78.72 26.91) scale(1.08 1)"
+                  style="
+                    font-size: 8.8204984664917px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  int
+                  <tspan x="-4.41" y="10.58">head</tspan>
+                </text>
+                <rect
+                  x="100.16"
+                  y="19.23"
+                  width="20.58"
+                  height="20.58"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <text
+                  transform="translate(108.26 31.68) scale(0.88 1)"
+                  style="
+                    font-size: 10.290558815002441px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  4
+                </text>
+                <text
+                  transform="translate(61.09 53.83) scale(1.08 1)"
+                  style="
+                    font-size: 8.8204984664917px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  IntList
+                  <tspan x="13.23" y="10.58">tail</tspan>
+                </text>
+                <rect
+                  x="100.16"
+                  y="44.88"
+                  width="20.58"
+                  height="20.58"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <rect
+                  x="140.27"
+                  y="11.85"
+                  width="69.46"
+                  height="60.07"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <text
+                  transform="translate(160.68 26.84) scale(1.08 1)"
+                  style="
+                    font-size: 8.8204984664917px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  int
+                  <tspan x="-4.41" y="10.58">head</tspan>
+                </text>
+                <rect
+                  x="182.12"
+                  y="19.23"
+                  width="20.58"
+                  height="20.58"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <text
+                  transform="translate(190.22 31.68) scale(0.88 1)"
+                  style="
+                    font-size: 10.290558815002441px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  1
+                </text>
+                <text
+                  transform="translate(143.05 53.83) scale(1.08 1)"
+                  style="
+                    font-size: 8.8204984664917px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  IntList
+                  <tspan x="13.23" y="10.58">tail</tspan>
+                </text>
+                <rect
+                  x="182.12"
+                  y="44.88"
+                  width="20.58"
+                  height="20.58"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <rect
+                  x="222.24"
+                  y="11.85"
+                  width="69.46"
+                  height="60.07"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <text
+                  transform="translate(242.65 26.77) scale(1.08 1)"
+                  style="
+                    font-size: 8.8204984664917px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  int
+                  <tspan x="-4.41" y="10.58">head</tspan>
+                </text>
+                <rect
+                  x="264.08"
+                  y="19.23"
+                  width="20.58"
+                  height="20.58"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <text
+                  transform="translate(272.19 31.68) scale(0.88 1)"
+                  style="
+                    font-size: 10.290558815002441px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  8
+                </text>
+                <text
+                  transform="translate(225.01 53.83) scale(1.08 1)"
+                  style="
+                    font-size: 8.8204984664917px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  IntList
+                  <tspan x="13.23" y="10.58">tail</tspan>
+                </text>
+                <rect
+                  x="264.08"
+                  y="44.88"
+                  width="20.58"
+                  height="20.58"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <line
+                  x1="110.45"
+                  y1="55.17"
+                  x2="137.67"
+                  y2="42.37"
+                  style="fill: #231f20"
+                />
+                <line
+                  x1="110.45"
+                  y1="55.17"
+                  x2="132.79"
+                  y2="44.66"
+                  style="
+                    fill: none;
+                    stroke: #231f20;
+                    stroke-miterlimit: 10;
+                    stroke-width: 0.75px;
+                  "
+                />
+                <polygon
+                  points="133.4 48.51 137.66 42.37 130.21 41.74 133.4 48.51"
+                  style="fill: #231f20"
+                />
+                <line
+                  x1="192.41"
+                  y1="55.17"
+                  x2="220.69"
+                  y2="43.81"
+                  style="fill: #231f20"
+                />
+                <line
+                  x1="192.41"
+                  y1="55.17"
+                  x2="215.7"
+                  y2="45.81"
+                  style="
+                    fill: none;
+                    stroke: #231f20;
+                    stroke-miterlimit: 10;
+                    stroke-width: 0.75px;
+                  "
+                />
+                <polygon
+                  points="216.07 49.69 220.69 43.81 213.29 42.75 216.07 49.69"
+                  style="fill: #231f20"
+                />
+                <line
+                  x1="264.08"
+                  y1="44.88"
+                  x2="284.66"
+                  y2="65.46"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <text
+                  transform="translate(62 7.16) scale(1.08 1)"
+                  style="
+                    font-size: 8.8204984664917px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  &lt;IntList obj&gt;
+                </text>
+                <text
+                  transform="translate(143.82 7.64) scale(1.08 1)"
+                  style="
+                    font-size: 8.8204984664917px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  &lt;IntList obj&gt;
+                </text>
+                <text
+                  transform="translate(224.61 7.45) scale(1.08 1)"
+                  style="
+                    font-size: 8.8204984664917px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  &lt;IntList obj&gt;
+                </text>
+              </g>
+              <g id="Shorthand">
+                <rect
+                  x="17.03"
+                  y="100.87"
+                  width="23.88"
+                  height="23.88"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <line
+                  x1="28.97"
+                  y1="112.82"
+                  x2="56.4"
+                  y2="112.82"
+                  style="fill: #231f20"
+                />
+                <line
+                  x1="28.97"
+                  y1="112.82"
+                  x2="51.02"
+                  y2="112.82"
+                  style="
+                    fill: none;
+                    stroke: #231f20;
+                    stroke-miterlimit: 10;
+                    stroke-width: 0.75px;
+                  "
+                />
+                <polygon
+                  points="49.93 116.56 56.41 112.81 49.93 109.08 49.93 116.56"
+                  style="fill: #231f20"
+                />
+                <text
+                  transform="translate(3.92 115.4)"
+                  style="
+                    font-size: 12.571783065795898px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  L:
+                </text>
+                <rect
+                  x="135.04"
+                  y="98.51"
+                  width="28.6"
+                  height="28.6"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <rect
+                  x="163.65"
+                  y="98.51"
+                  width="28.6"
+                  height="28.6"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <text
+                  transform="translate(147.05 116.7)"
+                  style="
+                    font-size: 12.584609985351562px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  1
+                </text>
+                <line
+                  x1="175.78"
+                  y1="112.82"
+                  x2="205.4"
+                  y2="112.82"
+                  style="fill: #231f20"
+                />
+                <line
+                  x1="175.78"
+                  y1="112.82"
+                  x2="200.87"
+                  y2="112.82"
+                  style="
+                    fill: none;
+                    stroke: #231f20;
+                    stroke-miterlimit: 10;
+                    stroke-width: 0.75px;
+                  "
+                />
+                <path
+                  d="M242.33,163.49a22.51,22.51,0,0,0-6.41,3.57l1.29-3.57-1.29-3.57A22.51,22.51,0,0,0,242.33,163.49Z"
+                  transform="translate(-36.93 -50.67)"
+                  style="fill: #231f20"
+                />
+                <text
+                  transform="translate(147.5 136.77)"
+                  style="
+                    font-size: 9.915149688720703px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  h
+                </text>
+                <text
+                  transform="translate(176.1 136.77)"
+                  style="
+                    font-size: 9.915149688720703px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  t
+                </text>
+                <rect
+                  x="210.31"
+                  y="98.51"
+                  width="28.6"
+                  height="28.6"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <rect
+                  x="238.91"
+                  y="98.51"
+                  width="28.6"
+                  height="28.6"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <text
+                  transform="translate(222.32 116.7)"
+                  style="
+                    font-size: 12.584609985351562px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  8
+                </text>
+                <line
+                  x1="238.91"
+                  y1="127.12"
+                  x2="267.51"
+                  y2="98.51"
+                  style="fill: #231f20; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <text
+                  transform="translate(223.62 136.77)"
+                  style="
+                    font-size: 9.915149688720703px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  h
+                </text>
+                <text
+                  transform="translate(251.36 136.77)"
+                  style="
+                    font-size: 9.915149688720703px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  t
+                </text>
+                <rect
+                  x="62"
+                  y="98.51"
+                  width="28.6"
+                  height="28.6"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <rect
+                  x="90.5"
+                  y="98.51"
+                  width="28.6"
+                  height="28.6"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <text
+                  transform="translate(73.15 116.7)"
+                  style="
+                    font-size: 12.584609985351562px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  4
+                </text>
+                <line
+                  x1="104.81"
+                  y1="112.82"
+                  x2="131.17"
+                  y2="112.82"
+                  style="fill: #231f20"
+                />
+                <line
+                  x1="104.81"
+                  y1="112.82"
+                  x2="126.65"
+                  y2="112.82"
+                  style="
+                    fill: none;
+                    stroke: #231f20;
+                    stroke-miterlimit: 10;
+                    stroke-width: 0.75px;
+                  "
+                />
+                <path
+                  d="M168.1,163.49a22.65,22.65,0,0,0-6.41,3.57l1.29-3.57-1.29-3.57A22.65,22.65,0,0,0,168.1,163.49Z"
+                  transform="translate(-36.93 -50.67)"
+                  style="fill: #231f20"
+                />
+                <text
+                  transform="translate(74.45 136.77)"
+                  style="
+                    font-size: 9.915149688720703px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  h
+                </text>
+                <text
+                  transform="translate(102.96 136.77)"
+                  style="
+                    font-size: 9.915149688720703px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  t
+                </text>
+                <text
+                  transform="translate(0 92.08)"
+                  style="
+                    font-size: 12px;
+                    fill: #ed1c24;
+                    font-family: WorkSans-Regular, Work Sans;
+                  "
+                >
+                  Sho
+                  <tspan
+                    x="22.42"
+                    y="0"
+                    style="letter-spacing: -0.029988606770833332em"
+                  >
+                    r
+                  </tspan>
+                  <tspan x="26.95" y="0">thand</tspan>
+                </text>
+              </g>
+            </svg>
+          </p>
+        </section>
+        <section>
+          <h3>Doubly Linked Lists: DNode</h3>
+          <p>
+            A <strong>doubly linked list</strong> is a data structure consisting
+            of individual nodes (<code>DNode</code>s) that each have three
+            fields:
+          </p>
+          <ul>
+            <li><code>head</code> holds a value</li>
+            <li>
+              <code>prev</code> holds a pointer to the previous
+              <code>DNode</code>
+            </li>
+            <li>
+              <code>next</code> holds a pointer to the next
+              <code>DNode</code>
+            </li>
+          </ul>
+          <p>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 288.7 167.5"
+              style="width: 100%"
+            >
+              <g id="Layer_1" data-name="Layer 1">
+                <rect
+                  x="13.38"
+                  y="29.77"
+                  width="23.88"
+                  height="23.88"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <line
+                  x1="25.33"
+                  y1="42.19"
+                  x2="52.76"
+                  y2="42.19"
+                  style="fill: #231f20"
+                />
+                <line
+                  x1="25.33"
+                  y1="42.19"
+                  x2="47.38"
+                  y2="42.19"
+                  style="
+                    fill: none;
+                    stroke: #231f20;
+                    stroke-miterlimit: 10;
+                    stroke-width: 0.75px;
+                  "
+                />
+                <polygon
+                  points="46.28 45.93 52.76 42.19 46.28 38.45 46.28 45.93"
+                  style="fill: #231f20"
+                />
+                <text
+                  transform="translate(0.28 44.6)"
+                  style="
+                    font-size: 12.571783065795898px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  D:
+                </text>
+                <rect
+                  x="54.82"
+                  y="11.67"
+                  width="69.46"
+                  height="100.93"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <rect
+                  x="96.66"
+                  y="19.05"
+                  width="20.58"
+                  height="20.58"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <text
+                  transform="translate(104.77 31.5) scale(0.88 1)"
+                  style="
+                    font-size: 10.290558815002441px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  4
+                </text>
+                <text
+                  transform="translate(67.14 53.65) scale(1.08 1)"
+                  style="
+                    font-size: 8.8204984664917px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  DNode
+                  <tspan x="4.41" y="10.58">next</tspan>
+                </text>
+                <rect
+                  x="96.66"
+                  y="44.7"
+                  width="20.58"
+                  height="20.58"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <rect
+                  x="136.78"
+                  y="11.67"
+                  width="69.46"
+                  height="100.93"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <rect
+                  x="178.62"
+                  y="19.05"
+                  width="20.58"
+                  height="20.58"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <text
+                  transform="translate(186.73 31.5) scale(0.88 1)"
+                  style="
+                    font-size: 10.290558815002441px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  1
+                </text>
+                <text
+                  transform="translate(149.11 53.65) scale(1.08 1)"
+                  style="
+                    font-size: 8.8204984664917px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  DNode
+                  <tspan x="4.41" y="10.58">next</tspan>
+                </text>
+                <rect
+                  x="178.62"
+                  y="44.7"
+                  width="20.58"
+                  height="20.58"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <rect
+                  x="218.74"
+                  y="11.67"
+                  width="69.46"
+                  height="100.93"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <rect
+                  x="260.59"
+                  y="19.05"
+                  width="20.58"
+                  height="20.58"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <text
+                  transform="translate(268.69 31.5) scale(0.88 1)"
+                  style="
+                    font-size: 10.290558815002441px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  8
+                </text>
+                <text
+                  transform="translate(231.07 53.65) scale(1.08 1)"
+                  style="
+                    font-size: 8.8204984664917px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  DNode
+                  <tspan x="4.41" y="10.58">next</tspan>
+                </text>
+                <rect
+                  x="260.59"
+                  y="44.7"
+                  width="20.58"
+                  height="20.58"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <line
+                  x1="106.95"
+                  y1="54.99"
+                  x2="134.17"
+                  y2="42.19"
+                  style="fill: #231f20"
+                />
+                <line
+                  x1="106.95"
+                  y1="54.99"
+                  x2="129.3"
+                  y2="44.48"
+                  style="
+                    fill: none;
+                    stroke: #231f20;
+                    stroke-miterlimit: 10;
+                    stroke-width: 0.75px;
+                  "
+                />
+                <polygon
+                  points="129.9 48.33 134.17 42.19 126.72 41.56 129.9 48.33"
+                  style="fill: #231f20"
+                />
+                <line
+                  x1="188.92"
+                  y1="54.99"
+                  x2="217.2"
+                  y2="43.63"
+                  style="fill: #231f20"
+                />
+                <line
+                  x1="188.92"
+                  y1="54.99"
+                  x2="212.2"
+                  y2="45.63"
+                  style="
+                    fill: none;
+                    stroke: #231f20;
+                    stroke-miterlimit: 10;
+                    stroke-width: 0.75px;
+                  "
+                />
+                <polygon
+                  points="212.58 49.51 217.2 43.63 209.79 42.57 212.58 49.51"
+                  style="fill: #231f20"
+                />
+                <line
+                  x1="260.59"
+                  y1="44.7"
+                  x2="281.17"
+                  y2="65.28"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <text
+                  transform="translate(62.06 7.16) scale(1.08 1)"
+                  style="
+                    font-size: 8.8204984664917px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  &lt;DNode obj&gt;
+                </text>
+                <text
+                  transform="translate(144.67 7.16) scale(1.08 1)"
+                  style="
+                    font-size: 8.8204984664917px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  &lt;DNode obj&gt;
+                </text>
+                <text
+                  transform="translate(227.41 7.16) scale(1.08 1)"
+                  style="
+                    font-size: 8.8204984664917px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  &lt;DNode obj&gt;
+                </text>
+                <text
+                  transform="translate(67.87 87.45) scale(1.08 1)"
+                  style="
+                    font-size: 8.8204984664917px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  DNode
+                  <tspan x="4.41" y="10.58">prev</tspan>
+                </text>
+                <rect
+                  x="97.39"
+                  y="78.5"
+                  width="20.58"
+                  height="20.58"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <line
+                  x1="97.02"
+                  y1="78.14"
+                  x2="117.6"
+                  y2="98.72"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <text
+                  transform="translate(149.71 87.09) scale(1.08 1)"
+                  style="
+                    font-size: 8.8204984664917px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  DNode
+                  <tspan x="4.41" y="10.58">prev</tspan>
+                </text>
+                <rect
+                  x="179.23"
+                  y="78.14"
+                  width="20.58"
+                  height="20.58"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <line
+                  x1="190.03"
+                  y1="89.64"
+                  x2="126.33"
+                  y2="60.88"
+                  style="fill: #231f20"
+                />
+                <line
+                  x1="190.03"
+                  y1="89.64"
+                  x2="131.23"
+                  y2="63.09"
+                  style="
+                    fill: none;
+                    stroke: #231f20;
+                    stroke-miterlimit: 10;
+                    stroke-width: 0.75px;
+                  "
+                />
+                <polygon
+                  points="133.77 60.13 126.33 60.88 130.69 66.95 133.77 60.13"
+                  style="fill: #231f20"
+                />
+                <text
+                  transform="translate(231.07 86.72) scale(1.08 1)"
+                  style="
+                    font-size: 8.8204984664917px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  DNode
+                  <tspan x="4.41" y="10.58">prev</tspan>
+                </text>
+                <rect
+                  x="260.59"
+                  y="77.77"
+                  width="20.58"
+                  height="20.58"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <line
+                  x1="271.39"
+                  y1="89.28"
+                  x2="207.68"
+                  y2="60.51"
+                  style="fill: #231f20"
+                />
+                <line
+                  x1="271.39"
+                  y1="89.28"
+                  x2="212.59"
+                  y2="62.73"
+                  style="
+                    fill: none;
+                    stroke: #231f20;
+                    stroke-miterlimit: 10;
+                    stroke-width: 0.75px;
+                  "
+                />
+                <polygon
+                  points="215.13 59.77 207.68 60.51 212.05 66.58 215.13 59.77"
+                  style="fill: #231f20"
+                />
+                <text
+                  transform="translate(76.87 26.3) scale(1.08 1)"
+                  style="
+                    font-size: 8.8204984664917px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  int
+                  <tspan x="-8.82" y="10.58">value</tspan>
+                </text>
+                <text
+                  transform="translate(158.83 26.23) scale(1.08 1)"
+                  style="
+                    font-size: 8.8204984664917px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  int
+                  <tspan x="-8.82" y="10.58">value</tspan>
+                </text>
+                <text
+                  transform="translate(240.79 26.16) scale(1.08 1)"
+                  style="
+                    font-size: 8.8204984664917px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  int
+                  <tspan x="-8.82" y="10.58">value</tspan>
+                </text>
+              </g>
+              <g id="dnode_shorthand" class="fragment">
+                <rect
+                  x="17.03"
+                  y="135.75"
+                  width="19.89"
+                  height="19.89"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <line
+                  x1="26.98"
+                  y1="145.7"
+                  x2="49.83"
+                  y2="145.7"
+                  style="fill: #231f20"
+                />
+                <line
+                  x1="26.98"
+                  y1="145.7"
+                  x2="44.44"
+                  y2="145.7"
+                  style="
+                    fill: none;
+                    stroke: #231f20;
+                    stroke-miterlimit: 10;
+                    stroke-width: 0.75px;
+                  "
+                />
+                <polygon
+                  points="43.35 149.44 49.83 145.7 43.35 141.96 43.35 149.44"
+                  style="fill: #231f20"
+                />
+                <text
+                  transform="translate(3.92 148.29)"
+                  style="
+                    font-size: 12.571783065795898px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  D:
+                </text>
+                <rect
+                  x="81.95"
+                  y="135.49"
+                  width="20.42"
+                  height="20.42"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <rect
+                  x="102.3"
+                  y="135.49"
+                  width="20.42"
+                  height="20.42"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <text
+                  transform="translate(89.92 148.47)"
+                  style="
+                    font-size: 8.983173370361328px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  4
+                </text>
+                <line
+                  x1="112.51"
+                  y1="140.71"
+                  x2="132.82"
+                  y2="140.71"
+                  style="fill: #231f20"
+                />
+                <line
+                  x1="112.51"
+                  y1="140.71"
+                  x2="128.78"
+                  y2="140.71"
+                  style="
+                    fill: none;
+                    stroke: #231f20;
+                    stroke-miterlimit: 10;
+                    stroke-width: 0.75px;
+                  "
+                />
+                <polygon
+                  points="127.96 143.52 132.82 140.71 127.96 137.91 127.96 143.52"
+                  style="fill: #231f20"
+                />
+                <text
+                  transform="translate(90.26 164.2)"
+                  style="
+                    font-size: 8.258382797241211px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  v
+                </text>
+                <text
+                  transform="translate(110.38 164.2)"
+                  style="
+                    font-size: 8.258382797241211px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  n
+                </text>
+                <text
+                  transform="translate(0 126.67)"
+                  style="
+                    font-size: 12px;
+                    fill: #ed1c24;
+                    font-family: WorkSans-Regular, Work Sans;
+                  "
+                >
+                  Sho
+                  <tspan
+                    x="22.42"
+                    y="0"
+                    style="letter-spacing: -0.029988606770833332em"
+                  >
+                    r
+                  </tspan>
+                  <tspan x="26.95" y="0">thand</tspan>
+                </text>
+                <rect
+                  x="61.34"
+                  y="135.49"
+                  width="20.42"
+                  height="20.42"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <line
+                  x1="61.34"
+                  y1="155.91"
+                  x2="81.76"
+                  y2="135.49"
+                  style="fill: #231f20; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <text
+                  transform="translate(69.42 164.2)"
+                  style="
+                    font-size: 8.258382797241211px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  p
+                </text>
+                <rect
+                  x="155.28"
+                  y="135.49"
+                  width="20.42"
+                  height="20.42"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <rect
+                  x="175.63"
+                  y="135.49"
+                  width="20.42"
+                  height="20.42"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <text
+                  transform="translate(163.24 148.47)"
+                  style="
+                    font-size: 8.983173370361328px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  1
+                </text>
+                <line
+                  x1="185.84"
+                  y1="140.71"
+                  x2="204.66"
+                  y2="140.71"
+                  style="fill: #231f20"
+                />
+                <line
+                  x1="185.84"
+                  y1="140.71"
+                  x2="200.63"
+                  y2="140.71"
+                  style="
+                    fill: none;
+                    stroke: #231f20;
+                    stroke-miterlimit: 10;
+                    stroke-width: 0.75px;
+                  "
+                />
+                <polygon
+                  points="199.81 143.52 204.66 140.71 199.81 137.91 199.81 143.52"
+                  style="fill: #231f20"
+                />
+                <rect
+                  x="134.67"
+                  y="135.49"
+                  width="20.42"
+                  height="20.42"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <rect
+                  x="228.87"
+                  y="135.49"
+                  width="20.42"
+                  height="20.42"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <rect
+                  x="249.22"
+                  y="135.49"
+                  width="20.42"
+                  height="20.42"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <text
+                  transform="translate(236.83 148.47)"
+                  style="
+                    font-size: 8.983173370361328px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  8
+                </text>
+                <rect
+                  x="208.26"
+                  y="135.49"
+                  width="20.42"
+                  height="20.42"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <line
+                  x1="145.67"
+                  y1="149.52"
+                  x2="125.74"
+                  y2="149.52"
+                  style="fill: #231f20"
+                />
+                <line
+                  x1="145.67"
+                  y1="149.52"
+                  x2="129.78"
+                  y2="149.52"
+                  style="
+                    fill: none;
+                    stroke: #231f20;
+                    stroke-miterlimit: 10;
+                    stroke-width: 0.75px;
+                  "
+                />
+                <polygon
+                  points="130.6 146.72 125.74 149.52 130.6 152.33 130.6 146.72"
+                  style="fill: #231f20"
+                />
+                <line
+                  x1="220.36"
+                  y1="149.52"
+                  x2="200.43"
+                  y2="149.52"
+                  style="fill: #231f20"
+                />
+                <line
+                  x1="220.36"
+                  y1="149.52"
+                  x2="204.47"
+                  y2="149.52"
+                  style="
+                    fill: none;
+                    stroke: #231f20;
+                    stroke-miterlimit: 10;
+                    stroke-width: 0.75px;
+                  "
+                />
+                <polygon
+                  points="205.29 146.72 200.43 149.52 205.29 152.33 205.29 146.72"
+                  style="fill: #231f20"
+                />
+                <line
+                  x1="249.22"
+                  y1="155.91"
+                  x2="269.64"
+                  y2="135.49"
+                  style="fill: #231f20; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <text
+                  transform="translate(163.72 164.2)"
+                  style="
+                    font-size: 8.258382797241211px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  v
+                </text>
+                <text
+                  transform="translate(183.84 164.2)"
+                  style="
+                    font-size: 8.258382797241211px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  n
+                </text>
+                <text
+                  transform="translate(142.88 164.2)"
+                  style="
+                    font-size: 8.258382797241211px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  p
+                </text>
+                <text
+                  transform="translate(237.3 164.2)"
+                  style="
+                    font-size: 8.258382797241211px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  v
+                </text>
+                <text
+                  transform="translate(257.43 164.2)"
+                  style="
+                    font-size: 8.258382797241211px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  n
+                </text>
+                <text
+                  transform="translate(216.47 164.2)"
+                  style="
+                    font-size: 8.258382797241211px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  p
+                </text>
+              </g>
+            </svg>
+          </p>
+        </section>
+        <section>
+          <h3>Doubly Linked Lists: IntDList</h3>
+          <p>
+            <code>IntDList</code> is a class that <em>wraps</em>
+            <code>DNode</code>s. An <code>IntDList</code> has two fields:
+          </p>
+          <ul>
+            <li>
+              <code>front</code> holds a pointer to the first
+              <code>DNode</code>
+            </li>
+            <li>
+              <code>back</code> holds a pointer to the last
+              <code>DNode</code>
+            </li>
+          </ul>
+          <p>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 369.67 178.07"
+              style="width: 100%"
+            >
+              <g id="Layer_1" data-name="Layer 1">
+                <rect
+                  x="21.85"
+                  y="28.08"
+                  width="23.88"
+                  height="23.88"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <line
+                  x1="33.79"
+                  y1="40.51"
+                  x2="61.22"
+                  y2="40.51"
+                  style="fill: #231f20"
+                />
+                <line
+                  x1="33.79"
+                  y1="40.51"
+                  x2="55.84"
+                  y2="40.51"
+                  style="
+                    fill: none;
+                    stroke: #231f20;
+                    stroke-miterlimit: 10;
+                    stroke-width: 0.75px;
+                  "
+                />
+                <polygon
+                  points="54.75 44.25 61.22 40.51 54.75 36.77 54.75 44.25"
+                  style="fill: #231f20"
+                />
+                <text
+                  transform="translate(2.39 43.02)"
+                  style="
+                    font-size: 12.571783065795898px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  DL:
+                </text>
+                <rect
+                  x="181.49"
+                  y="28.81"
+                  width="20.42"
+                  height="20.42"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <rect
+                  x="201.84"
+                  y="28.81"
+                  width="20.42"
+                  height="20.42"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <text
+                  transform="translate(189.45 41.79)"
+                  style="
+                    font-size: 8.983173370361328px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  4
+                </text>
+                <line
+                  x1="212.04"
+                  y1="34.04"
+                  x2="232.35"
+                  y2="34.04"
+                  style="fill: #231f20"
+                />
+                <line
+                  x1="212.04"
+                  y1="34.04"
+                  x2="228.32"
+                  y2="34.04"
+                  style="
+                    fill: none;
+                    stroke: #231f20;
+                    stroke-miterlimit: 10;
+                    stroke-width: 0.75px;
+                  "
+                />
+                <polygon
+                  points="227.5 36.84 232.35 34.04 227.5 31.23 227.5 36.84"
+                  style="fill: #231f20"
+                />
+                <text
+                  transform="translate(189.79 57.52)"
+                  style="
+                    font-size: 8.258382797241211px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  v
+                </text>
+                <text
+                  transform="translate(209.92 57.52)"
+                  style="
+                    font-size: 8.258382797241211px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  n
+                </text>
+                <rect
+                  x="160.88"
+                  y="28.81"
+                  width="20.42"
+                  height="20.42"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <line
+                  x1="160.88"
+                  y1="49.23"
+                  x2="181.29"
+                  y2="28.81"
+                  style="fill: #231f20; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <text
+                  transform="translate(168.96 57.52)"
+                  style="
+                    font-size: 8.258382797241211px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  p
+                </text>
+                <rect
+                  x="254.82"
+                  y="28.81"
+                  width="20.42"
+                  height="20.42"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <rect
+                  x="275.16"
+                  y="28.81"
+                  width="20.42"
+                  height="20.42"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <text
+                  transform="translate(262.78 41.79)"
+                  style="
+                    font-size: 8.983173370361328px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  1
+                </text>
+                <line
+                  x1="285.37"
+                  y1="34.04"
+                  x2="304.19"
+                  y2="34.04"
+                  style="fill: #231f20"
+                />
+                <line
+                  x1="285.37"
+                  y1="34.04"
+                  x2="300.16"
+                  y2="34.04"
+                  style="
+                    fill: none;
+                    stroke: #231f20;
+                    stroke-miterlimit: 10;
+                    stroke-width: 0.75px;
+                  "
+                />
+                <polygon
+                  points="299.34 36.84 304.19 34.04 299.34 31.23 299.34 36.84"
+                  style="fill: #231f20"
+                />
+                <rect
+                  x="234.2"
+                  y="28.81"
+                  width="20.42"
+                  height="20.42"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <rect
+                  x="328.4"
+                  y="28.81"
+                  width="20.42"
+                  height="20.42"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <rect
+                  x="348.75"
+                  y="28.81"
+                  width="20.42"
+                  height="20.42"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <text
+                  transform="translate(336.37 41.79)"
+                  style="
+                    font-size: 8.983173370361328px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  8
+                </text>
+                <rect
+                  x="307.79"
+                  y="28.81"
+                  width="20.42"
+                  height="20.42"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <line
+                  x1="245.21"
+                  y1="42.84"
+                  x2="225.28"
+                  y2="42.84"
+                  style="fill: #231f20"
+                />
+                <line
+                  x1="245.21"
+                  y1="42.84"
+                  x2="229.31"
+                  y2="42.84"
+                  style="
+                    fill: none;
+                    stroke: #231f20;
+                    stroke-miterlimit: 10;
+                    stroke-width: 0.75px;
+                  "
+                />
+                <polygon
+                  points="230.13 40.04 225.28 42.84 230.13 45.65 230.13 40.04"
+                  style="fill: #231f20"
+                />
+                <line
+                  x1="319.89"
+                  y1="42.84"
+                  x2="299.96"
+                  y2="42.84"
+                  style="fill: #231f20"
+                />
+                <line
+                  x1="319.89"
+                  y1="42.84"
+                  x2="304"
+                  y2="42.84"
+                  style="
+                    fill: none;
+                    stroke: #231f20;
+                    stroke-miterlimit: 10;
+                    stroke-width: 0.75px;
+                  "
+                />
+                <polygon
+                  points="304.82 40.04 299.96 42.84 304.82 45.65 304.82 40.04"
+                  style="fill: #231f20"
+                />
+                <line
+                  x1="348.75"
+                  y1="49.23"
+                  x2="369.17"
+                  y2="28.81"
+                  style="fill: #231f20; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <text
+                  transform="translate(263.25 57.52)"
+                  style="
+                    font-size: 8.258382797241211px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  v
+                </text>
+                <text
+                  transform="translate(283.37 57.52)"
+                  style="
+                    font-size: 8.258382797241211px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  n
+                </text>
+                <text
+                  transform="translate(242.41 57.52)"
+                  style="
+                    font-size: 8.258382797241211px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  p
+                </text>
+                <text
+                  transform="translate(336.84 57.52)"
+                  style="
+                    font-size: 8.258382797241211px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  v
+                </text>
+                <text
+                  transform="translate(356.96 57.52)"
+                  style="
+                    font-size: 8.258382797241211px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  n
+                </text>
+                <text
+                  transform="translate(316 57.52)"
+                  style="
+                    font-size: 8.258382797241211px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  p
+                </text>
+                <rect
+                  x="66.24"
+                  y="11.34"
+                  width="69.46"
+                  height="60.07"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <text
+                  transform="translate(68.48 26.46) scale(1.08 1)"
+                  style="
+                    font-size: 8.8204984664917px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  IntList
+                  <tspan x="13.23" y="10.58">head</tspan>
+                </text>
+                <rect
+                  x="108.08"
+                  y="18.71"
+                  width="20.58"
+                  height="20.58"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <text x="-12.67" y="-68.48" />
+                <text
+                  transform="translate(69.02 53.31) scale(1.08 1)"
+                  style="
+                    font-size: 8.8204984664917px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  IntList
+                  <tspan x="13.23" y="10.58">tail</tspan>
+                </text>
+                <rect
+                  x="108.08"
+                  y="44.36"
+                  width="20.58"
+                  height="20.58"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <text
+                  transform="translate(67.82 7.16) scale(1.08 1)"
+                  style="
+                    font-size: 8.8204984664917px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  &lt;DIntList obj&gt;
+                </text>
+                <path
+                  d="M131,97.48c1.79-2.24,18.06-22,43.52-20.7,11.14.58,19.74,8.2,24.89,13"
+                  transform="translate(-12.67 -68.48)"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <polygon
+                  points="183.37 21.9 186.1 20.63 187.08 17.77 190.12 24.24 183.37 21.9"
+                  style="fill: #231f20"
+                />
+                <path
+                  d="M131,123.13c12.13.74,17.86,1.66,30.49,2.87,55.45,5.35,80.78,15.73,115,16.23,14.73.21,48.42.77,65.34-10.24"
+                  transform="translate(-12.67 -68.48)"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <polygon
+                  points="330.55 67.07 333.41 60.16 325.99 61.15 330.55 67.07"
+                  style="fill: #231f20"
+                />
+              </g>
+              <g id="shorthand_intdlist" class="fragment">
+                <rect
+                  x="124.35"
+                  y="94.94"
+                  width="19.89"
+                  height="19.89"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <line
+                  x1="134.3"
+                  y1="104.89"
+                  x2="172.78"
+                  y2="104.89"
+                  style="fill: #231f20"
+                />
+                <line
+                  x1="134.3"
+                  y1="104.89"
+                  x2="167.4"
+                  y2="104.89"
+                  style="
+                    fill: none;
+                    stroke: #231f20;
+                    stroke-miterlimit: 10;
+                    stroke-width: 0.75px;
+                  "
+                />
+                <polygon
+                  points="166.3 108.63 172.78 104.89 166.3 101.14 166.3 108.63"
+                  style="fill: #231f20"
+                />
+                <text
+                  transform="translate(103.86 107.47)"
+                  style="
+                    font-size: 12.571783065795898px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  DL:
+                </text>
+                <rect
+                  x="118.3"
+                  y="146.06"
+                  width="20.42"
+                  height="20.42"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <rect
+                  x="138.65"
+                  y="146.06"
+                  width="20.42"
+                  height="20.42"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <text
+                  transform="translate(126.26 159.04)"
+                  style="
+                    font-size: 8.983173370361328px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  4
+                </text>
+                <line
+                  x1="148.86"
+                  y1="151.28"
+                  x2="169.17"
+                  y2="151.28"
+                  style="fill: #231f20"
+                />
+                <line
+                  x1="148.86"
+                  y1="151.28"
+                  x2="165.13"
+                  y2="151.28"
+                  style="
+                    fill: none;
+                    stroke: #231f20;
+                    stroke-miterlimit: 10;
+                    stroke-width: 0.75px;
+                  "
+                />
+                <polygon
+                  points="164.31 154.09 169.17 151.28 164.31 148.48 164.31 154.09"
+                  style="fill: #231f20"
+                />
+                <text
+                  transform="translate(126.6 174.77)"
+                  style="
+                    font-size: 8.258382797241211px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  v
+                </text>
+                <text
+                  transform="translate(146.73 174.77)"
+                  style="
+                    font-size: 8.258382797241211px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  n
+                </text>
+                <text
+                  transform="translate(0 89.24)"
+                  style="
+                    font-size: 12px;
+                    fill: #ed1c24;
+                    font-family: WorkSans-Regular, Work Sans;
+                  "
+                >
+                  Sho
+                  <tspan
+                    x="22.42"
+                    y="0"
+                    style="letter-spacing: -0.029988606770833332em"
+                  >
+                    r
+                  </tspan>
+                  <tspan x="26.95" y="0">thand</tspan>
+                </text>
+                <rect
+                  x="97.69"
+                  y="146.06"
+                  width="20.42"
+                  height="20.42"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <line
+                  x1="97.69"
+                  y1="166.47"
+                  x2="118.11"
+                  y2="146.06"
+                  style="fill: #231f20; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <text
+                  transform="translate(105.77 174.77)"
+                  style="
+                    font-size: 8.258382797241211px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  p
+                </text>
+                <rect
+                  x="191.63"
+                  y="146.06"
+                  width="20.42"
+                  height="20.42"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <rect
+                  x="211.98"
+                  y="146.06"
+                  width="20.42"
+                  height="20.42"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <text
+                  transform="translate(199.59 159.04)"
+                  style="
+                    font-size: 8.983173370361328px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  1
+                </text>
+                <line
+                  x1="222.19"
+                  y1="151.28"
+                  x2="241.01"
+                  y2="151.28"
+                  style="fill: #231f20"
+                />
+                <line
+                  x1="222.19"
+                  y1="151.28"
+                  x2="236.97"
+                  y2="151.28"
+                  style="
+                    fill: none;
+                    stroke: #231f20;
+                    stroke-miterlimit: 10;
+                    stroke-width: 0.75px;
+                  "
+                />
+                <polygon
+                  points="236.15 154.09 241.01 151.28 236.15 148.48 236.15 154.09"
+                  style="fill: #231f20"
+                />
+                <rect
+                  x="171.02"
+                  y="146.06"
+                  width="20.42"
+                  height="20.42"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <rect
+                  x="265.22"
+                  y="146.06"
+                  width="20.42"
+                  height="20.42"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <rect
+                  x="285.57"
+                  y="146.06"
+                  width="20.42"
+                  height="20.42"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <text
+                  transform="translate(273.18 159.04)"
+                  style="
+                    font-size: 8.983173370361328px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  8
+                </text>
+                <rect
+                  x="244.61"
+                  y="146.06"
+                  width="20.42"
+                  height="20.42"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <line
+                  x1="182.02"
+                  y1="160.09"
+                  x2="162.09"
+                  y2="160.09"
+                  style="fill: #231f20"
+                />
+                <line
+                  x1="182.02"
+                  y1="160.09"
+                  x2="166.13"
+                  y2="160.09"
+                  style="
+                    fill: none;
+                    stroke: #231f20;
+                    stroke-miterlimit: 10;
+                    stroke-width: 0.75px;
+                  "
+                />
+                <polygon
+                  points="166.95 157.28 162.09 160.09 166.95 162.89 166.95 157.28"
+                  style="fill: #231f20"
+                />
+                <line
+                  x1="256.7"
+                  y1="160.09"
+                  x2="236.78"
+                  y2="160.09"
+                  style="fill: #231f20"
+                />
+                <line
+                  x1="256.7"
+                  y1="160.09"
+                  x2="240.81"
+                  y2="160.09"
+                  style="
+                    fill: none;
+                    stroke: #231f20;
+                    stroke-miterlimit: 10;
+                    stroke-width: 0.75px;
+                  "
+                />
+                <polygon
+                  points="241.63 157.28 236.78 160.09 241.63 162.89 241.63 157.28"
+                  style="fill: #231f20"
+                />
+                <line
+                  x1="285.57"
+                  y1="166.47"
+                  x2="305.98"
+                  y2="146.06"
+                  style="fill: #231f20; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <text
+                  transform="translate(200.06 174.77)"
+                  style="
+                    font-size: 8.258382797241211px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  v
+                </text>
+                <text
+                  transform="translate(220.19 174.77)"
+                  style="
+                    font-size: 8.258382797241211px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  n
+                </text>
+                <text
+                  transform="translate(179.23 174.77)"
+                  style="
+                    font-size: 8.258382797241211px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  p
+                </text>
+                <text
+                  transform="translate(273.65 174.77)"
+                  style="
+                    font-size: 8.258382797241211px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  v
+                </text>
+                <text
+                  transform="translate(293.78 174.77)"
+                  style="
+                    font-size: 8.258382797241211px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  n
+                </text>
+                <text
+                  transform="translate(252.82 174.77)"
+                  style="
+                    font-size: 8.258382797241211px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  p
+                </text>
+                <rect
+                  x="200.94"
+                  y="94.68"
+                  width="20.42"
+                  height="20.42"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <rect
+                  x="180.33"
+                  y="94.68"
+                  width="20.42"
+                  height="20.42"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <text
+                  transform="translate(209.29 123.88)"
+                  style="
+                    font-size: 8.258382797241211px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  b
+                </text>
+                <text
+                  transform="translate(188.46 123.88)"
+                  style="
+                    font-size: 8.258382797241211px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  f
+                </text>
+                <path
+                  d="M203.21,173.37c-28.92,11-13.59,5.06-35.27,13.61-10.65,4.2-23.72,9.81-26.3,20.83"
+                  transform="translate(-12.67 -68.48)"
+                  style="
+                    fill: none;
+                    stroke: #231f20;
+                    stroke-miterlimit: 10;
+                    stroke-width: 0.75px;
+                  "
+                />
+                <polygon
+                  points="126.38 138.15 128.51 143.34 131.94 138.9 126.38 138.15"
+                  style="fill: #231f20"
+                />
+                <path
+                  d="M223.82,173.37c30.24,11,14.21,5.06,36.88,13.61,11.15,4.2,24.81,9.81,27.52,20.83"
+                  transform="translate(-12.67 -68.48)"
+                  style="
+                    fill: none;
+                    stroke: #231f20;
+                    stroke-miterlimit: 10;
+                    stroke-width: 0.75px;
+                  "
+                />
+                <polygon
+                  points="272.57 138.92 276.02 143.34 278.12 138.14 272.57 138.92"
+                  style="fill: #231f20"
+                />
+              </g>
+            </svg>
+          </p>
+        </section>
+        <section>
+          <h3>IntDList: insertFront</h3>
+          <pre class="code-pre">
+            <code class="java hljs" data-noescape data-trim>
+              IntDList DL = new IntDList(4, 1, 8);
+              DL.insertFront(7);
+            </code>
+          </pre>
+          <p>TODO: fragmented diagram</p>
+        </section>
+        <section>
+          <h3>IntDList: deleteFront</h3>
+          <pre class="code-pre">
+            <code class="java hljs" data-noescape data-trim>
+              IntDList DL = new IntDList(4, 1, 8);
+              int x = DL.deleteFront();
+            </code>
+          </pre>
+          <p>TODO: fragmented diagram</p>
+        </section>
+      </div>
+    </div>
+  </body>
+</html>
