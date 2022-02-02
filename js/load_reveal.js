@@ -34,13 +34,7 @@
       },
     });
 
-    var options = {
-      // copyIconClass: "fa",
-      // checkIconClass: "fa",
-      // copyIconContent: "📄",
-      // checkIconContent: "✅",
-    };
-    window.highlightJsBadge(options);
+    window.highlightJsBadge({});
   }
 
   init();

@@ -1,0 +1,1527 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Discussion 3 | Ethan's CS 61B Resources</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <link rel="stylesheet" href="/reveal.js/dist/reset.css" />
+    <link rel="stylesheet" href="/reveal.js/dist/reveal.css" />
+    <link rel="stylesheet" href="/reveal.js/dist/theme/simple.css" id="theme" />
+    <link rel="stylesheet" href="/reveal.js/plugin/chalkboard/style.css" />
+    <link rel="stylesheet" href="/reveal.js/plugin/customcontrols/style.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Inconsolata|Roboto:300,400,500|Work+Sans:400,700"
+    />
+    <link rel="stylesheet" href="/css/base.css" />
+    <link rel="stylesheet" href="/css/reveal-base.css" />
+    <link rel="stylesheet" href="/css/mono-code.css" />
+
+    <script src="/reveal.js/dist/reveal.js" defer></script>
+
+    <script src="/reveal.js/plugin/highlight/highlight.js" defer></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/highlightjs-badge@0.1.9/highlightjs-badge.min.js"
+      defer
+    ></script>
+
+    <script src="/reveal.js/plugin/chalkboard/plugin.js" defer></script>
+    <script src="/reveal.js/plugin/customcontrols/plugin.js" defer></script>
+    <script src="/reveal.js/plugin/menu/menu.js" defer></script>
+    <script src="/js/load_reveal.js" defer></script>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <h1>Discussion 3</h1>
+          <h2>Pointers</h2>
+          <aside>Starting at Berkeleytime</aside>
+        </section>
+        <section>
+          <h2>Announcements</h2>
+          <ol>
+            <li>Lab 3 due Friday 2/4</li>
+            <li>HW 2 due next Tuesday 2/8</li>
+            <li>
+              Topical Review Session run by CS 61B tutors, Friday 2-3:30 PM (see
+              <a href="https://piazza.com/class/kyhxhjauuc26wy?cid=210"
+                >Week 3 Announcements</a
+              >)
+            </li>
+          </ol>
+        </section>
+        <section>
+          <h2>Values &amp; Containers</h2>
+          <p>
+            <strong>Values</strong> are numbers, booleans, and pointers. They
+            cannot change without being replaced entirely. Kinds of values:
+          </p>
+          <ul>
+            <li>
+              <em>Primitive types</em>: <code>int</code>, <code>double</code>,
+              <code>bool</code>, <code>char</code>, <code>short</code>,
+              <code>long</code>, <code>float</code>, <code>byte</code>
+            </li>
+            <li>
+              <em>Pointers</em>: "memory address" where a
+              <em>structured container</em> is stored
+            </li>
+            <li><em>Null</em>: a special pointer that means "nothing"</li>
+          </ul>
+          <p>
+            <strong>Simple containers</strong> are named and contain values,
+            which may be pointers to structured containers.
+          </p>
+          <p>
+            <strong>Structured containers</strong> are anonymous and contain
+            zero or more simple containers.
+          </p>
+          <p>
+            Java variables and fields are simple containers! We don't work
+            directly with structured containers, but instead through pointers.
+          </p>
+        </section>
+        <section>
+          <h2>Containers Example</h2>
+          <pre class="code-pre">
+            <code class="java hljs" style="font-size: 20px;" data-trim data-noescape>
+              public class Cat {
+                int id;
+                int age;
+
+                public Cat(int id, int age) {
+                  this.id = id;
+                  this.age = age;
+                }
+
+                public static void main(String[] args) {
+                  Cat marty = new Cat(2, 5);
+                }
+              }
+            </code>
+          </pre>
+
+          <p style="text-align: center">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 368.61 216.42"
+              height="375"
+            >
+              <g id="Annotations">
+                <g id="Marty" class="fragment">
+                  <rect
+                    x="0.5"
+                    y="68.14"
+                    width="134.38"
+                    height="70.28"
+                    style="fill: none; stroke: #ed2024; stroke-miterlimit: 10"
+                  />
+                  <text
+                    transform="translate(13.66 161.07)"
+                    style="
+                      font-size: 13px;
+                      fill: #ed2024;
+                      font-family: WorkSans-Regular, Work Sans;
+                    "
+                  >
+                    <tspan style="letter-spacing: -0.004995492788461538em">
+                      S
+                    </tspan>
+                    <tspan x="8.27" y="0">imple co</tspan>
+                    <tspan
+                      x="63.5"
+                      y="0"
+                      style="letter-spacing: -0.006986177884615385em"
+                    >
+                      n
+                    </tspan>
+                    <tspan
+                      x="71.46"
+                      y="0"
+                      style="letter-spacing: 0.000037560096153846156em"
+                    >
+                      taine
+                    </tspan>
+                    <tspan
+                      x="103.32"
+                      y="0"
+                      style="letter-spacing: -0.022986778846153848em"
+                    >
+                      r
+                    </tspan>
+                    <tspan
+                      x="27.17"
+                      y="15.6"
+                      style="letter-spacing: -0.03496844951923077em"
+                    >
+                      (
+                    </tspan>
+                    <tspan
+                      x="31.26"
+                      y="15.6"
+                      style="letter-spacing: -0.000037560096153846156em"
+                    >
+                      poi
+                    </tspan>
+                    <tspan
+                      x="50.82"
+                      y="15.6"
+                      style="letter-spacing: -0.006986177884615385em"
+                    >
+                      n
+                    </tspan>
+                    <tspan x="58.77" y="15.6">te</tspan>
+                    <tspan
+                      x="71.77"
+                      y="15.6"
+                      style="letter-spacing: -0.035982572115384616em"
+                    >
+                      r
+                    </tspan>
+                    <tspan x="76.61" y="15.6">)</tspan>
+                  </text>
+                </g>
+                <g id="Ints" class="fragment">
+                  <rect
+                    x="250.22"
+                    y="114.61"
+                    width="90.81"
+                    height="52.93"
+                    style="fill: none; stroke: #ed2024; stroke-miterlimit: 10"
+                  />
+                  <rect
+                    x="250.22"
+                    y="62.07"
+                    width="90.81"
+                    height="52.93"
+                    style="fill: none; stroke: #ed2024; stroke-miterlimit: 10"
+                  />
+                  <text
+                    transform="translate(238.02 186.33)"
+                    style="
+                      font-size: 13px;
+                      fill: #ed2024;
+                      font-family: WorkSans-Regular, Work Sans;
+                    "
+                  >
+                    <tspan style="letter-spacing: -0.004995492788461538em">
+                      S
+                    </tspan>
+                    <tspan x="8.27" y="0">imple co</tspan>
+                    <tspan
+                      x="63.5"
+                      y="0"
+                      style="letter-spacing: -0.006986177884615385em"
+                    >
+                      n
+                    </tspan>
+                    <tspan
+                      x="71.46"
+                      y="0"
+                      style="letter-spacing: 0.000037560096153846156em"
+                    >
+                      taine
+                    </tspan>
+                    <tspan
+                      x="103.32"
+                      y="0"
+                      style="letter-spacing: -0.02099609375em"
+                    >
+                      r
+                    </tspan>
+                    <tspan x="108.35" y="0">s</tspan>
+                    <tspan x="41.48" y="15.6">(i</tspan>
+                    <tspan
+                      x="49.48"
+                      y="15.6"
+                      style="letter-spacing: -0.006986177884615385em"
+                    >
+                      n
+                    </tspan>
+                    <tspan x="57.44" y="15.6">t</tspan>
+                    <tspan
+                      x="62.89"
+                      y="15.6"
+                      style="letter-spacing: -0.04300631009615385em"
+                    >
+                      s
+                    </tspan>
+                    <tspan x="69.18" y="15.6">)</tspan>
+                  </text>
+                </g>
+                <g id="Cat" class="fragment">
+                  <text
+                    transform="translate(200.1 10.79)"
+                    style="
+                      font-size: 13px;
+                      fill: #00aeef;
+                      font-family: WorkSans-Regular, Work Sans;
+                    "
+                  >
+                    Structu
+                    <tspan
+                      x="47.96"
+                      y="0"
+                      style="letter-spacing: -0.01600060096153846em"
+                    >
+                      r
+                    </tspan>
+                    <tspan x="53.05" y="0">ed co</tspan>
+                    <tspan
+                      x="88.46"
+                      y="0"
+                      style="letter-spacing: -0.006986177884615385em"
+                    >
+                      n
+                    </tspan>
+                    <tspan x="96.42" y="0">taine</tspan>
+                    <tspan
+                      x="128.28"
+                      y="0"
+                      style="letter-spacing: -0.022986778846153848em"
+                    >
+                      r
+                    </tspan>
+                    <tspan
+                      x="133.29"
+                      y="0"
+                      style="letter-spacing: 0.00007512019230769231em"
+                    ></tspan>
+                    <tspan
+                      x="137.72"
+                      y="0"
+                      style="letter-spacing: -0.038987379807692304em"
+                    >
+                      (
+                    </tspan>
+                    <tspan
+                      x="141.76"
+                      y="0"
+                      style="letter-spacing: -0.00007512019230769231em"
+                    >
+                      C
+                    </tspan>
+                    <tspan
+                      x="150.68"
+                      y="0"
+                      style="letter-spacing: -0.019981971153846152em"
+                    >
+                      a
+                    </tspan>
+                    <tspan
+                      x="157.78"
+                      y="0"
+                      style="letter-spacing: -0.021033653846153848em"
+                    >
+                      t
+                    </tspan>
+                    <tspan x="162.95" y="0">)</tspan>
+                  </text>
+                  <rect
+                    x="199.19"
+                    y="18.07"
+                    width="168.92"
+                    height="197.85"
+                    style="fill: none; stroke: #00aeef; stroke-miterlimit: 10"
+                  />
+                </g>
+              </g>
+              <g id="Layer_1" data-name="Layer 1">
+                <rect
+                  x="75.96"
+                  y="78.28"
+                  width="50"
+                  height="50"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <rect
+                  x="212.63"
+                  y="33.28"
+                  width="135"
+                  height="140"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <text
+                  transform="translate(222.02 57.27) scale(1.08 1)"
+                  style="
+                    font-size: 24px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  Cat
+                </text>
+                <text
+                  transform="translate(263.3 95.07) scale(1.08 1)"
+                  style="
+                    font-size: 20px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  id
+                </text>
+                <rect
+                  x="293.96"
+                  y="70.87"
+                  width="40"
+                  height="40"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <text
+                  transform="translate(309.71 95.07)"
+                  style="
+                    font-size: 20px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  2
+                </text>
+                <text
+                  transform="translate(252.48 145.19) scale(1.08 1)"
+                  style="
+                    font-size: 20px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  age
+                </text>
+                <rect
+                  x="293.96"
+                  y="121.07"
+                  width="40"
+                  height="40"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <text
+                  transform="translate(308.96 148.63)"
+                  style="
+                    font-size: 20px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  5
+                </text>
+                <text
+                  transform="translate(4.36 110.87) scale(1.08 1)"
+                  style="
+                    font-size: 24px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  marty
+                </text>
+                <line
+                  x1="100.96"
+                  y1="103.28"
+                  x2="205.46"
+                  y2="103.28"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <polygon
+                  points="204 108.26 212.63 103.28 204 98.29 204 108.26"
+                  style="fill: #231f20"
+                />
+              </g>
+            </svg>
+          </p>
+        </section>
+        <section>
+          <h2>Linked Lists</h2>
+          <p>
+            A <strong>linked list</strong> is a data structure that is a
+            <em>structured container</em> containing two
+            <em>simple containers</em>:
+          </p>
+          <ul>
+            <li><code>head</code> holds a value</li>
+            <li>
+              <code>tail</code> holds a <em>pointer</em> to the next Linked
+              List, which holds two simple containers:
+              <ul class="fragment">
+                <li><code>head</code> holds a value</li>
+                <li>
+                  <code>tail</code> holds a pointer to the next Linked List,
+                  which holds two simple containers:
+                  <ul class="fragment">
+                    <li><code>head</code> holds a value</li>
+                    <li>
+                      <code>tail</code> holds a pointer to the next Linked List,
+                      which holds two simple containers...
+                      <ul class="fragment">
+                        <li><code>head</code> holds a value</li>
+                        <li>
+                          <code>tail</code> holds a pointer to the next Linked
+                          List, which holds two simple containers...
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+          <p class="fragment">
+            A linked list is a <em>recursive data structure</em>!
+          </p>
+        </section>
+        <section>
+          <h2>Linked List Box &amp; Pointer Diagram</h2>
+          <p>Our linked list type is <code>IntList</code>.</p>
+          <pre class="code-pre">
+            <code class="java hljs" data-trim>
+              IntList L = new IntList(1, new IntList(2, new IntList(3, null)));
+            </code>
+          </pre>
+          <p>
+            <svg
+              id="Layer_1"
+              data-name="Layer 1"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 277.81 52.88"
+              style="width: 100%"
+            >
+              <rect
+                x="140.97"
+                y="4.92"
+                width="28.6"
+                height="28.6"
+                style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+              />
+              <rect
+                x="169.57"
+                y="4.92"
+                width="28.6"
+                height="28.6"
+                style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+              />
+              <text
+                transform="translate(152.97 23.68)"
+                style="
+                  font-size: 12.584609985351562px;
+                  fill: #231f20;
+                  font-family: Inconsolata-Regular, Inconsolata;
+                "
+              >
+                2
+              </text>
+              <line
+                x1="181.7"
+                y1="19.22"
+                x2="211.32"
+                y2="19.22"
+                style="fill: #231f20"
+              />
+              <line
+                x1="181.7"
+                y1="19.22"
+                x2="206.79"
+                y2="19.22"
+                style="
+                  fill: none;
+                  stroke: #231f20;
+                  stroke-miterlimit: 10;
+                  stroke-width: 0.75px;
+                "
+              />
+              <path
+                d="M225,152.51a22.65,22.65,0,0,0-6.41,3.57l1.29-3.57-1.29-3.57A22.65,22.65,0,0,0,225,152.51Z"
+                transform="translate(-13.63 -133.29)"
+                style="fill: #231f20"
+              />
+              <text
+                transform="translate(145.35 48.42)"
+                style="
+                  font-size: 9.915149688720703px;
+                  fill: #231f20;
+                  font-family: Inconsolata-Regular, Inconsolata;
+                "
+              >
+                head
+              </text>
+              <text
+                transform="translate(173.95 48.42)"
+                style="
+                  font-size: 9.915149688720703px;
+                  fill: #231f20;
+                  font-family: Inconsolata-Regular, Inconsolata;
+                "
+              >
+                tail
+              </text>
+              <rect
+                x="216.23"
+                y="4.72"
+                width="28.6"
+                height="28.6"
+                style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+              />
+              <rect
+                x="244.83"
+                y="4.72"
+                width="28.6"
+                height="28.6"
+                style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+              />
+              <text
+                transform="translate(228.24 23.48)"
+                style="
+                  font-size: 12.584609985351562px;
+                  fill: #231f20;
+                  font-family: Inconsolata-Regular, Inconsolata;
+                "
+              >
+                3
+              </text>
+              <line
+                x1="244.83"
+                y1="33.32"
+                x2="273.44"
+                y2="4.72"
+                style="fill: #231f20; stroke: #231f20; stroke-miterlimit: 10"
+              />
+              <text
+                transform="translate(221.47 48.42)"
+                style="
+                  font-size: 9.915149688720703px;
+                  fill: #231f20;
+                  font-family: Inconsolata-Regular, Inconsolata;
+                "
+              >
+                head
+              </text>
+              <text
+                transform="translate(249.22 48.42)"
+                style="
+                  font-size: 9.915149688720703px;
+                  fill: #231f20;
+                  font-family: Inconsolata-Regular, Inconsolata;
+                "
+              >
+                tail
+              </text>
+              <rect
+                x="67.92"
+                y="4.92"
+                width="28.6"
+                height="28.6"
+                style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+              />
+              <rect
+                x="96.43"
+                y="4.92"
+                width="28.6"
+                height="28.6"
+                style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+              />
+              <text
+                transform="translate(79.07 23.68)"
+                style="
+                  font-size: 12.584609985351562px;
+                  fill: #231f20;
+                  font-family: Inconsolata-Regular, Inconsolata;
+                "
+              >
+                1
+              </text>
+              <line
+                x1="110.73"
+                y1="19.22"
+                x2="137.09"
+                y2="19.22"
+                style="fill: #231f20"
+              />
+              <line
+                x1="110.73"
+                y1="19.22"
+                x2="132.57"
+                y2="19.22"
+                style="
+                  fill: none;
+                  stroke: #231f20;
+                  stroke-miterlimit: 10;
+                  stroke-width: 0.75px;
+                "
+              />
+              <path
+                d="M150.72,152.51a22.65,22.65,0,0,0-6.41,3.57l1.29-3.57-1.29-3.57A22.65,22.65,0,0,0,150.72,152.51Z"
+                transform="translate(-13.63 -133.29)"
+                style="fill: #231f20"
+              />
+              <text
+                transform="translate(72.3 48.42)"
+                style="
+                  font-size: 9.915149688720703px;
+                  fill: #231f20;
+                  font-family: Inconsolata-Regular, Inconsolata;
+                "
+              >
+                head
+              </text>
+              <text
+                transform="translate(100.81 48.42)"
+                style="
+                  font-size: 9.915149688720703px;
+                  fill: #231f20;
+                  font-family: Inconsolata-Regular, Inconsolata;
+                "
+              >
+                tail
+              </text>
+              <rect
+                x="15.7"
+                y="4.92"
+                width="28.6"
+                height="28.6"
+                style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+              />
+              <line
+                x1="30"
+                y1="19.8"
+                x2="62.84"
+                y2="19.8"
+                style="fill: #231f20"
+              />
+              <line
+                x1="30"
+                y1="19.8"
+                x2="58.32"
+                y2="19.8"
+                style="
+                  fill: none;
+                  stroke: #231f20;
+                  stroke-miterlimit: 10;
+                  stroke-width: 0.75px;
+                "
+              />
+              <path
+                d="M76.47,153.09a22.65,22.65,0,0,0-6.41,3.57l1.29-3.57-1.29-3.57A22.65,22.65,0,0,0,76.47,153.09Z"
+                transform="translate(-13.63 -133.29)"
+                style="fill: #231f20"
+              />
+              <text
+                transform="translate(0 22.68)"
+                style="
+                  font-size: 15.054459571838379px;
+                  fill: #231f20;
+                  font-family: Inconsolata-Regular, Inconsolata;
+                "
+              >
+                L:
+              </text>
+              <rect
+                x="64.06"
+                y="0.51"
+                width="64.91"
+                height="51.87"
+                style="fill: none; stroke: #ed1c24; stroke-miterlimit: 10"
+              />
+              <rect
+                x="137.09"
+                y="0.72"
+                width="64.95"
+                height="51.65"
+                style="fill: none; stroke: #ed1c24; stroke-miterlimit: 10"
+              />
+              <rect
+                x="212.36"
+                y="0.5"
+                width="64.95"
+                height="51.88"
+                style="fill: none; stroke: #ed1c24; stroke-miterlimit: 10"
+              />
+            </svg>
+          </p>
+          <p>
+            You don't need to draw the red boxes, though - it's clear that
+            <code>head</code> and <code>tail</code> are part of the same
+            structured container.
+          </p>
+        </section>
+        <section>
+          <h2>Arrays</h2>
+          <p>
+            An <strong>array</strong> is a data structure that is a
+            <em>structured container</em> that contains a
+            <em>fixed number</em> of simple containers of the same type of
+            value.
+          </p>
+          <p>
+            Access the simple container at index <code>i</code> with
+            <code>arr[i]</code>.
+          </p>
+          <p>
+            An array stores its length in the field <code>length</code>, but we
+            don't usually draw it in diagrams.
+          </p>
+          <pre class="code-pre">
+            <code class="java hljs" style="font-size: 22px;" data-trim data-noescape>
+              int[] intArr = new int[]{4, 1, 8};
+              IntList[] intListArr = new IntList[]{new IntList(3, null), new IntList(5, null)};
+            </code>
+          </pre>
+          <p style="text-align: center">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 501.3 127.9"
+              style="width: 100%"
+            >
+              <g id="Layer_1" data-name="Layer 1">
+                <text
+                  transform="translate(0 34.02)"
+                  style="
+                    font-size: 20px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  intArr
+                </text>
+                <rect
+                  x="67.63"
+                  y="13.53"
+                  width="32.76"
+                  height="32.76"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <line
+                  x1="84.01"
+                  y1="29.9"
+                  x2="121.63"
+                  y2="29.9"
+                  style="fill: #231f20"
+                />
+                <line
+                  x1="84.01"
+                  y1="29.9"
+                  x2="116.25"
+                  y2="29.9"
+                  style="
+                    fill: none;
+                    stroke: #231f20;
+                    stroke-miterlimit: 10;
+                    stroke-width: 0.75px;
+                  "
+                />
+                <polygon
+                  points="115.16 33.65 121.63 29.91 115.16 26.16 115.16 33.65"
+                  style="fill: #231f20"
+                />
+                <rect
+                  x="126.26"
+                  y="13.53"
+                  width="32.76"
+                  height="32.76"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <rect
+                  x="159"
+                  y="13.53"
+                  width="32.76"
+                  height="32.76"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <rect
+                  x="191.78"
+                  y="13.53"
+                  width="32.76"
+                  height="32.76"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <text
+                  transform="translate(137.64 35.77)"
+                  style="
+                    font-size: 20px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  4
+                </text>
+                <text
+                  transform="translate(170.38 35.78)"
+                  style="
+                    font-size: 20px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  1
+                </text>
+                <text
+                  transform="translate(203.16 35.77)"
+                  style="
+                    font-size: 20px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  8
+                </text>
+                <text
+                  transform="translate(132.89 61.03)"
+                  style="
+                    font-size: 13px;
+                    fill: #636466;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  [0]
+                </text>
+                <text
+                  transform="translate(165.63 61.03)"
+                  style="
+                    font-size: 13px;
+                    fill: #636466;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  [1]
+                </text>
+                <text
+                  transform="translate(198.41 61.03)"
+                  style="
+                    font-size: 13px;
+                    fill: #636466;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  [2]
+                </text>
+              </g>
+              <g id="Layer_2" data-name="Layer 2">
+                <text
+                  transform="translate(262.32 37.15)"
+                  style="
+                    font-size: 16px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  intListArr
+                </text>
+                <rect
+                  x="349.22"
+                  y="17.81"
+                  width="32.76"
+                  height="32.76"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <line
+                  x1="365.6"
+                  y1="34.19"
+                  x2="403.23"
+                  y2="34.19"
+                  style="fill: #231f20"
+                />
+                <line
+                  x1="365.6"
+                  y1="34.19"
+                  x2="397.84"
+                  y2="34.19"
+                  style="
+                    fill: none;
+                    stroke: #231f20;
+                    stroke-miterlimit: 10;
+                    stroke-width: 0.75px;
+                  "
+                />
+                <polygon
+                  points="396.75 37.93 403.23 34.19 396.75 30.45 396.75 37.93"
+                  style="fill: #231f20"
+                />
+                <rect
+                  x="407.85"
+                  y="17.81"
+                  width="32.76"
+                  height="32.76"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <rect
+                  x="440.59"
+                  y="17.81"
+                  width="32.76"
+                  height="32.76"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <text
+                  transform="translate(414.48 10.55)"
+                  style="
+                    font-size: 13px;
+                    fill: #636466;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  [0]
+                </text>
+                <text
+                  transform="translate(447.22 10.55)"
+                  style="
+                    font-size: 13px;
+                    fill: #636466;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  [1]
+                </text>
+                <line
+                  x1="424.23"
+                  y1="34.19"
+                  x2="384.41"
+                  y2="77.4"
+                  style="fill: #231f20"
+                />
+                <line
+                  x1="424.23"
+                  y1="34.19"
+                  x2="388.06"
+                  y2="73.44"
+                  style="
+                    fill: none;
+                    stroke: #231f20;
+                    stroke-miterlimit: 10;
+                    stroke-width: 0.75px;
+                  "
+                />
+                <polygon
+                  points="386.05 70.1 384.42 77.4 391.55 75.17 386.05 70.1"
+                  style="fill: #231f20"
+                />
+                <line
+                  x1="456.97"
+                  y1="34.19"
+                  x2="470.31"
+                  y2="78.63"
+                  style="fill: #231f20"
+                />
+                <line
+                  x1="456.97"
+                  y1="34.19"
+                  x2="468.76"
+                  y2="73.47"
+                  style="
+                    fill: none;
+                    stroke: #231f20;
+                    stroke-miterlimit: 10;
+                    stroke-width: 0.75px;
+                  "
+                />
+                <polygon
+                  points="464.87 73.5 470.31 78.63 472.03 71.35 464.87 73.5"
+                  style="fill: #231f20"
+                />
+                <rect
+                  x="354.85"
+                  y="81.6"
+                  width="30.49"
+                  height="30.49"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <rect
+                  x="385.34"
+                  y="81.6"
+                  width="30.49"
+                  height="30.49"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <text
+                  transform="translate(367.65 101.6)"
+                  style="
+                    font-size: 13.413963317871094px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  3
+                </text>
+                <line
+                  x1="385.34"
+                  y1="112.09"
+                  x2="415.83"
+                  y2="81.6"
+                  style="fill: #231f20; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <text
+                  transform="translate(358.26 123.23)"
+                  style="
+                    font-size: 10.568577766418457px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  head
+                </text>
+                <text
+                  transform="translate(390.02 122.82)"
+                  style="
+                    font-size: 10.568577766418457px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  tail
+                </text>
+                <rect
+                  x="439.82"
+                  y="82.04"
+                  width="30.49"
+                  height="30.49"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <rect
+                  x="470.31"
+                  y="82.04"
+                  width="30.49"
+                  height="30.49"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <text
+                  transform="translate(452.62 102.04)"
+                  style="
+                    font-size: 13.413963317871094px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  5
+                </text>
+                <line
+                  x1="470.31"
+                  y1="112.53"
+                  x2="500.8"
+                  y2="82.04"
+                  style="fill: #231f20; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <text
+                  transform="translate(443.23 123.67)"
+                  style="
+                    font-size: 10.568577766418457px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  head
+                </text>
+                <text
+                  transform="translate(474.98 123.26)"
+                  style="
+                    font-size: 10.568577766418457px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  tail
+                </text>
+              </g>
+            </svg>
+          </p>
+          <p class="fragment">
+            What if I run
+            <code>intListArr[0].tail = intListArr[1]</code>?
+          </p>
+        </section>
+        <section>
+          <h3>Destructive and Non-Destructive Operations</h3>
+          <p>
+            In Java, assignment and function calls
+            <em>copy the values</em> inside simple containers. The original
+            simple containers are left alone!
+          </p>
+          <p>
+            <strong>Destructive</strong> functions alter the structured
+            container pointed to by the argument. The changes remain even after
+            we leave the function.
+          </p>
+          <p>
+            <strong>Non-Destructive</strong> functions do not alter the
+            structured container(s) pointed to by the argument.
+          </p>
+          <div class="flex-container">
+            <div style="width: 46%">
+              <pre class="code-pre">
+                <code class="java hljs" style="font-size: 20px;" data-trim data-noescape>
+                  void f(int[] x) {
+                    x[1] = 5;          // destructive
+                    x = new int[]{5};  // non-destructive
+                  }
+
+                  // main
+                  int[] A = new int[]{4, 1, 8};
+                  f(A);
+                </code>
+              </pre>
+            </div>
+            <div style="width: 46%">
+              <svg
+                id="Layer_1"
+                data-name="Layer 1"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 206.63 121.95"
+                style="width: 100%"
+              >
+                <text
+                  transform="translate(27.2 57.86)"
+                  style="
+                    font-size: 20px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  A
+                </text>
+                <rect
+                  x="49.23"
+                  y="35.39"
+                  width="32.76"
+                  height="32.76"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <line
+                  x1="65.61"
+                  y1="51.77"
+                  x2="103.23"
+                  y2="51.77"
+                  style="fill: #231f20"
+                />
+                <line
+                  x1="65.61"
+                  y1="51.77"
+                  x2="97.85"
+                  y2="51.77"
+                  style="
+                    fill: none;
+                    stroke: #231f20;
+                    stroke-miterlimit: 10;
+                    stroke-width: 0.75px;
+                  "
+                />
+                <polygon
+                  points="96.75 55.51 103.23 51.77 96.75 48.03 96.75 55.51"
+                  style="fill: #231f20"
+                />
+                <rect
+                  x="107.85"
+                  y="35.39"
+                  width="32.76"
+                  height="32.76"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <rect
+                  x="140.6"
+                  y="35.39"
+                  width="32.76"
+                  height="32.76"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <rect
+                  x="173.37"
+                  y="35.39"
+                  width="32.76"
+                  height="32.76"
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
+                />
+                <text
+                  transform="translate(119.23 57.64)"
+                  style="
+                    font-size: 20px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  4
+                </text>
+                <text
+                  transform="translate(151.98 57.64)"
+                  style="
+                    font-size: 20px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  1
+                </text>
+                <text
+                  transform="translate(184.75 57.64)"
+                  style="
+                    font-size: 20px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  8
+                </text>
+                <text
+                  transform="translate(114.48 82.9)"
+                  style="
+                    font-size: 13px;
+                    fill: #636466;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  [0]
+                </text>
+                <text
+                  transform="translate(147.23 82.9)"
+                  style="
+                    font-size: 13px;
+                    fill: #636466;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  [1]
+                </text>
+                <text
+                  transform="translate(180 82.9)"
+                  style="
+                    font-size: 13px;
+                    fill: #636466;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  [2]
+                </text>
+                <text
+                  transform="translate(27.52 111.16)"
+                  style="
+                    font-size: 20px;
+                    fill: #ed1c24;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  x
+                </text>
+                <rect
+                  x="49.55"
+                  y="88.69"
+                  width="32.76"
+                  height="32.76"
+                  style="fill: none; stroke: #ed1c24; stroke-miterlimit: 10"
+                />
+                <text
+                  transform="translate(0 19.48)"
+                  style="
+                    font-size: 24px;
+                    fill: #231f20;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  main
+                </text>
+                <text
+                  transform="translate(2.42 88.69)"
+                  style="
+                    font-size: 24px;
+                    fill: #ed1c24;
+                    font-family: Inconsolata-Regular, Inconsolata;
+                  "
+                >
+                  f
+                </text>
+                <line
+                  x1="66"
+                  y1="105.07"
+                  x2="103.23"
+                  y2="57.86"
+                  style="fill: #231f20"
+                />
+                <line
+                  x1="66"
+                  y1="105.07"
+                  x2="99.9"
+                  y2="62.09"
+                  style="
+                    fill: none;
+                    stroke: #ed1c24;
+                    stroke-miterlimit: 10;
+                    stroke-width: 0.75px;
+                  "
+                />
+                <polygon
+                  points="102.16 65.26 103.23 57.86 96.28 60.63 102.16 65.26"
+                  style="fill: #ed1c24"
+                />
+              </svg>
+            </div>
+          </div>
+        </section>
+        <section>
+          <h1>Worksheet</h1>
+        </section>
+        <section>
+          <h2>1. Boxes and Pointers</h2>
+          <pre class="code-pre">
+          <code class="java hljs" data-noescape data-line-numbers data-trim>
+            IntList L = IntList.list(1, 2, 3, 4);
+            IntList M = L.tail.tail;
+            IntList N = IntList.list(5, 6, 7);
+            N.tail.tail.tail = N;
+            L.tail.tail = N.tail.tail.tail.tail;
+            M.tail.tail = L;
+          </code>
+        </pre>
+          <p>
+            How does the box and pointer diagram change after each statement?
+          </p>
+        </section>
+        <section>
+          <h2>1. Boxes and Pointers (Extra)</h2>
+          <pre class="code-pre">
+            <code class="java hljs" data-noescape data-line-numbers data-trim>
+              IntList L1 = IntList.list(1, 2, 3);
+              IntList L2 = new IntList(4, L1.tail);
+              L2.tail.head = 13;
+              L1.tail.tail.tail = L2;
+              IntList L3 = IntList.list(50);
+              L2.tail.tail = L3;
+            </code>
+          </pre>
+        </section>
+        <section>
+          <h2>2. Destructive or Non-Destructive?</h2>
+          <pre class="code-pre">
+              <code class="java hljs" data-noescape data-line-numbers data-trim>
+                /** Returns the head of IntList L. Assumes that L is not null. */
+                public static int getHead(IntList L) {
+                  int listHead = L.head;
+                  L = new IntList(5, null);
+                  return listHead;
+                }
+              </code>
+            </pre>
+          <p>Is <code>getHead</code> destructive or non-destructive?</p>
+        </section>
+        <section>
+          <h2>3. Reversing a Linked List</h2>
+          <pre class="code-pre">
+              <code class="java hljs" data-noescape data-trim>
+                /** Nondestructively reverses IntList L. */
+                public static IntList reverseNondestructive(IntList L) {
+
+
+
+
+
+
+
+
+
+
+                }
+              </code>
+            </pre>
+        </section>
+        <section>
+          <h3>3. Reversing a Linked List (Extra)</h3>
+          <pre class="code-pre">
+              <code class="java hljs" data-noescape data-trim>
+                /** Destructively reverses IntList L using recursion */
+                public static IntList reverseDestructive(IntList L) {
+
+
+
+
+
+
+
+
+
+
+                }
+              </code>
+            </pre>
+        </section>
+        <section>
+          <h2>4. Inserting into a Linked List</h2>
+          <pre class="code-pre">
+            <code class="java hljs" data-noescape data-trim>
+              /** Inserts item at the given position in IntList L and returns the resulting
+                * IntList. If the value of position is past the end of the list, inserts the
+                * item at the end of the list. Uses recursion. */
+              public static IntList insertRecursive(IntList L, int item, int position) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              }
+            </code>
+          </pre>
+        </section>
+        <section>
+          <h3>4. Inserting into a Linked List (Extra)</h3>
+          <pre class="code-pre">
+            <code class="java hljs" data-noescape data-trim>
+              /** Inserts item at the given position in IntList L and returns the resulting
+                * IntList. If the value of position is past the end of the list, inserts the
+                * item at the end of the list. Uses iteration. */
+              public static IntList insertIterative(IntList L, int item, int position) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              }
+            </code>
+          </pre>
+        </section>
+        <section>
+          <h3>5. Shifting a Linked List (Extra)</h3>
+          <pre class="code-pre">
+            <code class="java hljs" data-noescape data-trim>
+              /** Destructively shifts the elements of the given IntList L to the
+               * left by one position. Returns the first node in the shifted list. */
+              public static IntList shiftListDestructive(IntList L) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              }
+            </code>
+          </pre>
+        </section>
+      </div>
+    </div>
+  </body>
+</html>
