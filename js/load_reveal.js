@@ -21,11 +21,17 @@
 
       customcontrols: {
         controls: [
-          { icon: '<i class="fa fa-pen"></i>',
-            title: 'Toggle notes canvas (C)',
-            action: 'RevealChalkboard.toggleNotesCanvas();'
+          {
+            icon: '<i class="fa fa-pen"></i>',
+            title: "Toggle notes canvas (C)",
+            action: "RevealChalkboard.toggleNotesCanvas();",
+          },
+          {
+            icon: '<i class="fa fa-home"></i>',
+            title: "Go to home page",
+            action: "window.location.assign('/');",
           }
-        ]
+        ],
       },
 
       chalkboard: {
