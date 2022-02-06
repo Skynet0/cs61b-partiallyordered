@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Proj 0: Piece | Ethan's CS 61B Resources</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Inconsolata|Roboto:300,400,500|Work+Sans:400,700"
+    />
+    <link rel="stylesheet" href="/css/base.css" />
+    <link rel="stylesheet" href="/css/proj/piece.css" />
+    <script src="/js/proj/proj0/piece.js" defer></script>
+  </head>
+  <body>
+    <div class="desc-container">
+      <div class="piece-flex-container">
+        <div id="piece-input-container">
+          <p>
+            Enter <code>*</code> and <code>.</code> for the piece's <br />
+            layout as in the project.
+          </p>
+          <textarea id="piece-input"></textarea>
+        </div>
+        <button id="submit-piece"><span>View piece</span></button>
+        <p id="piece-error" class="hidden"></p>
+        <div id="piece-grid"></div>
+      </div>
+
+      <h3>What am I looking at?</h3>
+      <p>
+        In Project 0, we place <em>pieces</em> on the game grid. These pieces
+        are represented as another grid in which some cells are "filled".
+      </p>
+      <p>
+        A <code>Piece</code>'s grid is represented internally using a 2D boolean
+        array, called <code>_positions</code>. If the cell at that row and
+        column inside the <code>Piece</code>'s grid is filled, then
+        <code>positions[row][col]</code> is <code>true</code>.
+      </p>
+      <p>
+        <code>Piece</code>, which are small grids, are placed on the larger game
+        grid. How do we know which cells on the grid to check against cells on
+        the <code>Piece</code>?
+      </p>
+      <p>
+        We mark the upper-left cell in the piece as its
+        <em>reference point</em>, which may not necessarily be filled. The
+        reference point in the <code>Piece</code> above is outlined in
+        <span style="color: red">red</span>. For a specific cell on the game
+        grid, we align the <code>Piece's</code> reference point with that cell.
+        The other cells in the <code>Piece</code> are positioned relative to the
+        reference point.
+      </p>
+    </div>
+  </body>
+</html>

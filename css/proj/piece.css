@@ -1,0 +1,87 @@
+.piece-flex-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin: auto;
+}
+
+#piece-input-container {
+  width: auto;
+  display: flex;
+  align-content: space-around;
+}
+
+#piece-input-container > p {
+  text-align: right;
+  max-width: 300px;
+  padding-right: 10px;
+}
+
+#piece-input {
+  margin: 10px;
+  width: 300px;
+}
+
+#piece-grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: inherit;
+  padding: 20px;
+}
+
+.piece-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.piece-cell {
+  height: auto;
+  flex: 1 0 auto;
+  border: 1px solid black;
+  width: 100px;
+  margin-left: -1px;
+  margin-top: -1px;
+  text-align: center;
+
+  display: flex;
+  justify-content: center;
+}
+
+.piece-row > span, .piece-cell > span {
+  margin: auto;
+  font-size: 16pt;
+  /* font-weight: bold; */
+}
+.piece-row > span {
+  margin-right: 15px;
+}
+
+.piece-row:first-child > .piece-cell:nth-child(2) {
+  border: 4px solid red;
+}
+
+.filled-cell {
+  background-color: #5AAAFF;
+}
+
+.piece-cell:before {
+  content:'';
+  float:left;
+  padding-top:100%;
+}
+
+#piece-error {
+  display: inline;
+  color: red;
+}
+
+#submit-piece {
+  margin: 7px 0;
+}
+
+.desc-container {
+  width: 600px;
+  margin: auto;
+}

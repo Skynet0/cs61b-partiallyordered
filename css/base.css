@@ -13,6 +13,12 @@ body {
   font-size: 18px;
 }
 
+button > span {
+  font-size: 18px;
+  padding: 3 5px;
+  color: #383838;
+}
+
 h1,
 h2,
 h3 {
@@ -32,4 +38,13 @@ h3 {
 
 svg {
   padding: 5px;
+}
+
+.hidden {
+  display: none;
+  margin: 0;
+}
+
+code {
+  font-family: "Inconsolata", monospace;
 }
