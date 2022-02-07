@@ -30,7 +30,7 @@
             icon: '<i class="fa fa-home"></i>',
             title: "Go to home page",
             action: "window.location.assign('/');",
-          }
+          },
         ],
       },
 
@@ -38,6 +38,34 @@
         readOnly: false,
         storage: "disc_" + window.location.pathname.split("/")[2],
       },
+    });
+
+    Reveal.on("fragmentshown", (event) => {
+      event.fragments.forEach((frag) => {
+        (frag.getAttribute("data-entangled-ids") ?? "")
+          .split(/\s+/)
+          .filter((id) => id != "")
+          .forEach((id) => {
+            let elem = document.getElementById(id);
+            if (elem) {
+              elem.classList.add("entangled-visible");
+            }
+          });
+      });
+    });
+
+    Reveal.on("fragmenthidden", (event) => {
+      event.fragments.forEach((frag) => {
+        (frag.getAttribute("data-entangled-ids") ?? "")
+          .split(/\s+/)
+          .filter((id) => id != "")
+          .forEach((id) => {
+            let elem = document.getElementById(id);
+            if (elem) {
+              elem.classList.remove("entangled-visible");
+            }
+          });
+      });
     });
 
     window.highlightJsBadge({});

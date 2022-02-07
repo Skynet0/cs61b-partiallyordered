@@ -73,3 +73,8 @@
 .no-code-badge > .code-badge {
   display: none;
 }
+
+.reveal .slides section .entangled-visible.entangled-fade-out {
+  opacity: 0;
+  visibility: hidden;
+}
