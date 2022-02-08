@@ -10,11 +10,15 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="manifest" href="/site.webmanifest" />
 
-    <link rel="stylesheet" href="/reveal.js/dist/reset.css" />
-    <link rel="stylesheet" href="/reveal.js/dist/reveal.css" />
-    <link rel="stylesheet" href="/reveal.js/dist/theme/simple.css" id="theme" />
-    <link rel="stylesheet" href="/reveal.js/plugin/chalkboard/style.css" />
-    <link rel="stylesheet" href="/reveal.js/plugin/customcontrols/style.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.2.1/dist/reset.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.2.1/dist/reveal.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/reveal.js@4.2.1/dist/theme/simple.css"
+      id="theme"
+    />
+    <link rel="stylesheet" href="/reveal-plugins/chalkboard/style.css" />
+    <link rel="stylesheet" href="/reveal-plugins/customcontrols/style.css" />
 
     <link
       rel="stylesheet"
@@ -24,17 +28,15 @@
     <link rel="stylesheet" href="/css/reveal-base.css" />
     <link rel="stylesheet" href="/css/mono-code.css" />
 
-    <script src="/reveal.js/dist/reveal.js" defer></script>
-
-    <script src="/reveal.js/plugin/highlight/highlight.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.2.1/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.2.1/plugin/highlight/highlight.js"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/highlightjs-badge@0.1.9/highlightjs-badge.min.js"
       defer
     ></script>
-
-    <script src="/reveal.js/plugin/chalkboard/plugin.js" defer></script>
-    <script src="/reveal.js/plugin/customcontrols/plugin.js" defer></script>
-    <script src="/reveal.js/plugin/menu/menu.js" defer></script>
+    <script src="/reveal-plugins/chalkboard/plugin.js" defer></script>
+    <script src="/reveal-plugins/customcontrols/plugin.js" defer></script>
+    <script src="/reveal-plugins/menu/menu.js" defer></script>
     <script src="/js/load_reveal.js" defer></script>
   </head>
   <body>
@@ -53,41 +55,38 @@
             <li>Project 0 due next Friday 2/11 - start early!</li>
             <li>
               Topical Review Session run by CS 61B tutors, Friday 2-3:30 PM (see
-              <a href="https://piazza.com/class/kyhxhjauuc26wy?cid=210"
-                >Week 3 Announcements</a
-              >)
+              <a href="https://piazza.com/class/kyhxhjauuc26wy?cid=210">Week 3 Announcements</a>)
             </li>
           </ol>
         </section>
         <section>
           <h2>Values &amp; Containers</h2>
           <p>
-            <strong>Values</strong> are numbers, booleans, and pointers. They
-            cannot change without being replaced entirely. Kinds of values:
+            <strong>Values</strong> are numbers, booleans, and pointers. They cannot change without
+            being replaced entirely. Kinds of values:
           </p>
           <ul>
             <li>
-              <em>Primitive types</em>: <code>int</code>, <code>double</code>,
-              <code>bool</code>, <code>char</code>, <code>short</code>,
-              <code>long</code>, <code>float</code>, <code>byte</code>
+              <em>Primitive types</em>: <code>int</code>, <code>double</code>, <code>bool</code>,
+              <code>char</code>, <code>short</code>, <code>long</code>, <code>float</code>,
+              <code>byte</code>
             </li>
             <li>
-              <em>Pointers</em>: "memory address" where a
-              <em>structured container</em> is stored
+              <em>Pointers</em>: "memory address" where a <em>structured container</em> is stored
             </li>
             <li><em>Null</em>: a special pointer that means "nothing"</li>
           </ul>
           <p class="fragment">
-            <strong>Simple containers</strong> are named and contain values,
-            which may be pointers to structured containers.
+            <strong>Simple containers</strong> are named and contain values, which may be pointers
+            to structured containers.
           </p>
           <p class="fragment">
-            <strong>Structured containers</strong> are anonymous and contain
-            zero or more simple containers.
+            <strong>Structured containers</strong> are anonymous and contain zero or more simple
+            containers.
           </p>
           <p class="fragment">
-            Java variables and fields are simple containers! We don't work
-            directly with structured containers, but instead through pointers.
+            Java variables and fields are simple containers! We don't work directly with structured
+            containers, but instead through pointers.
           </p>
         </section>
         <section>
@@ -110,11 +109,7 @@
             </code>
           </pre>
           <p style="text-align: center">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 368.61 216.42"
-              style="width: 60%;"
-            >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 368.61 216.42" style="width: 60%">
               <g id="Annotations">
                 <g id="Marty" class="fragment">
                   <rect
@@ -126,64 +121,28 @@
                   />
                   <text
                     transform="translate(13.66 161.07)"
-                    style="
-                      font-size: 13px;
-                      fill: #ed2024;
-                      font-family: WorkSans-Regular, Work Sans;
-                    "
+                    style="font-size: 13px; fill: #ed2024; font-family: WorkSans-Regular, Work Sans"
                   >
-                    <tspan style="letter-spacing: -0.004995492788461538em">
-                      S
-                    </tspan>
+                    <tspan style="letter-spacing: -0.004995492788461538em">S</tspan>
                     <tspan x="8.27" y="0">imple co</tspan>
-                    <tspan
-                      x="63.5"
-                      y="0"
-                      style="letter-spacing: -0.006986177884615385em"
-                    >
-                      n
-                    </tspan>
-                    <tspan
-                      x="71.46"
-                      y="0"
-                      style="letter-spacing: 0.000037560096153846156em"
-                    >
+                    <tspan x="63.5" y="0" style="letter-spacing: -0.006986177884615385em">n</tspan>
+                    <tspan x="71.46" y="0" style="letter-spacing: 0.000037560096153846156em">
                       taine
                     </tspan>
-                    <tspan
-                      x="103.32"
-                      y="0"
-                      style="letter-spacing: -0.022986778846153848em"
-                    >
+                    <tspan x="103.32" y="0" style="letter-spacing: -0.022986778846153848em">
                       r
                     </tspan>
-                    <tspan
-                      x="27.17"
-                      y="15.6"
-                      style="letter-spacing: -0.03496844951923077em"
-                    >
+                    <tspan x="27.17" y="15.6" style="letter-spacing: -0.03496844951923077em">
                       (
                     </tspan>
-                    <tspan
-                      x="31.26"
-                      y="15.6"
-                      style="letter-spacing: -0.000037560096153846156em"
-                    >
+                    <tspan x="31.26" y="15.6" style="letter-spacing: -0.000037560096153846156em">
                       poi
                     </tspan>
-                    <tspan
-                      x="50.82"
-                      y="15.6"
-                      style="letter-spacing: -0.006986177884615385em"
-                    >
+                    <tspan x="50.82" y="15.6" style="letter-spacing: -0.006986177884615385em">
                       n
                     </tspan>
                     <tspan x="58.77" y="15.6">te</tspan>
-                    <tspan
-                      x="71.77"
-                      y="15.6"
-                      style="letter-spacing: -0.035982572115384616em"
-                    >
+                    <tspan x="71.77" y="15.6" style="letter-spacing: -0.035982572115384616em">
                       r
                     </tspan>
                     <tspan x="76.61" y="15.6">)</tspan>
@@ -206,52 +165,22 @@
                   />
                   <text
                     transform="translate(238.02 186.33)"
-                    style="
-                      font-size: 13px;
-                      fill: #ed2024;
-                      font-family: WorkSans-Regular, Work Sans;
-                    "
+                    style="font-size: 13px; fill: #ed2024; font-family: WorkSans-Regular, Work Sans"
                   >
-                    <tspan style="letter-spacing: -0.004995492788461538em">
-                      S
-                    </tspan>
+                    <tspan style="letter-spacing: -0.004995492788461538em">S</tspan>
                     <tspan x="8.27" y="0">imple co</tspan>
-                    <tspan
-                      x="63.5"
-                      y="0"
-                      style="letter-spacing: -0.006986177884615385em"
-                    >
-                      n
-                    </tspan>
-                    <tspan
-                      x="71.46"
-                      y="0"
-                      style="letter-spacing: 0.000037560096153846156em"
-                    >
+                    <tspan x="63.5" y="0" style="letter-spacing: -0.006986177884615385em">n</tspan>
+                    <tspan x="71.46" y="0" style="letter-spacing: 0.000037560096153846156em">
                       taine
                     </tspan>
-                    <tspan
-                      x="103.32"
-                      y="0"
-                      style="letter-spacing: -0.02099609375em"
-                    >
-                      r
-                    </tspan>
+                    <tspan x="103.32" y="0" style="letter-spacing: -0.02099609375em">r</tspan>
                     <tspan x="108.35" y="0">s</tspan>
                     <tspan x="41.48" y="15.6">(i</tspan>
-                    <tspan
-                      x="49.48"
-                      y="15.6"
-                      style="letter-spacing: -0.006986177884615385em"
-                    >
+                    <tspan x="49.48" y="15.6" style="letter-spacing: -0.006986177884615385em">
                       n
                     </tspan>
                     <tspan x="57.44" y="15.6">t</tspan>
-                    <tspan
-                      x="62.89"
-                      y="15.6"
-                      style="letter-spacing: -0.04300631009615385em"
-                    >
+                    <tspan x="62.89" y="15.6" style="letter-spacing: -0.04300631009615385em">
                       s
                     </tspan>
                     <tspan x="69.18" y="15.6">)</tspan>
@@ -260,34 +189,14 @@
                 <g id="Cat" class="fragment">
                   <text
                     transform="translate(200.1 10.79)"
-                    style="
-                      font-size: 13px;
-                      fill: #00aeef;
-                      font-family: WorkSans-Regular, Work Sans;
-                    "
+                    style="font-size: 13px; fill: #00aeef; font-family: WorkSans-Regular, Work Sans"
                   >
                     Structu
-                    <tspan
-                      x="47.96"
-                      y="0"
-                      style="letter-spacing: -0.01600060096153846em"
-                    >
-                      r
-                    </tspan>
+                    <tspan x="47.96" y="0" style="letter-spacing: -0.01600060096153846em">r</tspan>
                     <tspan x="53.05" y="0">ed co</tspan>
-                    <tspan
-                      x="88.46"
-                      y="0"
-                      style="letter-spacing: -0.006986177884615385em"
-                    >
-                      n
-                    </tspan>
+                    <tspan x="88.46" y="0" style="letter-spacing: -0.006986177884615385em">n</tspan>
                     <tspan x="96.42" y="0">taine</tspan>
-                    <tspan
-                      x="128.28"
-                      y="0"
-                      style="letter-spacing: -0.022986778846153848em"
-                    >
+                    <tspan x="128.28" y="0" style="letter-spacing: -0.022986778846153848em">
                       r
                     </tspan>
                     <tspan
@@ -295,32 +204,16 @@
                       y="0"
                       style="letter-spacing: 0.00007512019230769231em"
                     ></tspan>
-                    <tspan
-                      x="137.72"
-                      y="0"
-                      style="letter-spacing: -0.038987379807692304em"
-                    >
+                    <tspan x="137.72" y="0" style="letter-spacing: -0.038987379807692304em">
                       (
                     </tspan>
-                    <tspan
-                      x="141.76"
-                      y="0"
-                      style="letter-spacing: -0.00007512019230769231em"
-                    >
+                    <tspan x="141.76" y="0" style="letter-spacing: -0.00007512019230769231em">
                       C
                     </tspan>
-                    <tspan
-                      x="150.68"
-                      y="0"
-                      style="letter-spacing: -0.019981971153846152em"
-                    >
+                    <tspan x="150.68" y="0" style="letter-spacing: -0.019981971153846152em">
                       a
                     </tspan>
-                    <tspan
-                      x="157.78"
-                      y="0"
-                      style="letter-spacing: -0.021033653846153848em"
-                    >
+                    <tspan x="157.78" y="0" style="letter-spacing: -0.021033653846153848em">
                       t
                     </tspan>
                     <tspan x="162.95" y="0">)</tspan>
@@ -442,29 +335,28 @@
           <h2>Linked Lists</h2>
           <p>
             A <strong>linked list</strong> is a data structure that is a
-            <em>structured container</em> containing two
-            <em>simple containers</em>:
+            <em>structured container</em> containing two <em>simple containers</em>:
           </p>
           <ul>
             <li><code>head</code> holds a value</li>
             <li>
-              <code>tail</code> holds a <em>pointer</em> to the next Linked
-              List, which holds two simple containers:
+              <code>tail</code> holds a <em>pointer</em> to the next Linked List, which holds two
+              simple containers:
               <ul class="fragment">
                 <li><code>head</code> holds a value</li>
                 <li>
-                  <code>tail</code> holds a pointer to the next Linked List,
-                  which holds two simple containers:
+                  <code>tail</code> holds a pointer to the next Linked List, which holds two simple
+                  containers:
                   <ul class="fragment">
                     <li><code>head</code> holds a value</li>
                     <li>
-                      <code>tail</code> holds a pointer to the next Linked List,
-                      which holds two simple containers...
+                      <code>tail</code> holds a pointer to the next Linked List, which holds two
+                      simple containers...
                       <ul class="fragment">
                         <li><code>head</code> holds a value</li>
                         <li>
-                          <code>tail</code> holds a pointer to the next Linked
-                          List, which holds two simple containers...
+                          <code>tail</code> holds a pointer to the next Linked List, which holds two
+                          simple containers...
                         </li>
                       </ul>
                     </li>
@@ -473,9 +365,7 @@
               </ul>
             </li>
           </ul>
-          <p class="fragment">
-            A linked list is a <em>recursive data structure</em>!
-          </p>
+          <p class="fragment">A linked list is a <em>recursive data structure</em>!</p>
         </section>
         <section>
           <h2>Linked List Box &amp; Pointer Diagram</h2>
@@ -517,24 +407,13 @@
               >
                 2
               </text>
-              <line
-                x1="181.7"
-                y1="19.22"
-                x2="211.32"
-                y2="19.22"
-                style="fill: #231f20"
-              />
+              <line x1="181.7" y1="19.22" x2="211.32" y2="19.22" style="fill: #231f20" />
               <line
                 x1="181.7"
                 y1="19.22"
                 x2="206.79"
                 y2="19.22"
-                style="
-                  fill: none;
-                  stroke: #231f20;
-                  stroke-miterlimit: 10;
-                  stroke-width: 0.75px;
-                "
+                style="fill: none; stroke: #231f20; stroke-miterlimit: 10; stroke-width: 0.75px"
               />
               <path
                 d="M225,152.51a22.65,22.65,0,0,0-6.41,3.57l1.29-3.57-1.29-3.57A22.65,22.65,0,0,0,225,152.51Z"
@@ -636,24 +515,13 @@
               >
                 1
               </text>
-              <line
-                x1="110.73"
-                y1="19.22"
-                x2="137.09"
-                y2="19.22"
-                style="fill: #231f20"
-              />
+              <line x1="110.73" y1="19.22" x2="137.09" y2="19.22" style="fill: #231f20" />
               <line
                 x1="110.73"
                 y1="19.22"
                 x2="132.57"
                 y2="19.22"
-                style="
-                  fill: none;
-                  stroke: #231f20;
-                  stroke-miterlimit: 10;
-                  stroke-width: 0.75px;
-                "
+                style="fill: none; stroke: #231f20; stroke-miterlimit: 10; stroke-width: 0.75px"
               />
               <path
                 d="M150.72,152.51a22.65,22.65,0,0,0-6.41,3.57l1.29-3.57-1.29-3.57A22.65,22.65,0,0,0,150.72,152.51Z"
@@ -687,24 +555,13 @@
                 height="28.6"
                 style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
               />
-              <line
-                x1="30"
-                y1="19.8"
-                x2="62.84"
-                y2="19.8"
-                style="fill: #231f20"
-              />
+              <line x1="30" y1="19.8" x2="62.84" y2="19.8" style="fill: #231f20" />
               <line
                 x1="30"
                 y1="19.8"
                 x2="58.32"
                 y2="19.8"
-                style="
-                  fill: none;
-                  stroke: #231f20;
-                  stroke-miterlimit: 10;
-                  stroke-width: 0.75px;
-                "
+                style="fill: none; stroke: #231f20; stroke-miterlimit: 10; stroke-width: 0.75px"
               />
               <path
                 d="M76.47,153.09a22.65,22.65,0,0,0-6.41,3.57l1.29-3.57-1.29-3.57A22.65,22.65,0,0,0,76.47,153.09Z"
@@ -746,25 +603,20 @@
           </p>
           <p>
             You don't need to draw the red boxes, though - it's clear that
-            <code>head</code> and <code>tail</code> are part of the same
-            structured container.
+            <code>head</code> and <code>tail</code> are part of the same structured container.
           </p>
         </section>
         <section>
           <h2>Arrays</h2>
           <p>
             An <strong>array</strong> is a data structure that is a
-            <em>structured container</em> that contains a
-            <em>fixed number</em> of simple containers of the same type of
-            value.
+            <em>structured container</em> that contains a <em>fixed number</em> of simple containers
+            of the same type of value.
           </p>
+          <p>Access the simple container at index <code>i</code> with <code>arr[i]</code>.</p>
           <p>
-            Access the simple container at index <code>i</code> with
-            <code>arr[i]</code>.
-          </p>
-          <p>
-            An array stores its length in the field <code>length</code>, but we
-            don't usually draw it in diagrams.
+            An array stores its length in the field <code>length</code>, but we don't usually draw
+            it in diagrams.
           </p>
           <pre class="code-pre">
             <code class="java hljs" style="font-size: 22px;" data-trim data-noescape>
@@ -773,11 +625,7 @@
             </code>
           </pre>
           <p style="text-align: center">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 501.3 127.9"
-              style="width: 75%"
-            >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 501.3 127.9" style="width: 75%">
               <g id="Layer_1" data-name="Layer 1">
                 <text
                   transform="translate(0 34.02)"
@@ -796,24 +644,13 @@
                   height="32.76"
                   style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
                 />
-                <line
-                  x1="84.01"
-                  y1="29.9"
-                  x2="121.63"
-                  y2="29.9"
-                  style="fill: #231f20"
-                />
+                <line x1="84.01" y1="29.9" x2="121.63" y2="29.9" style="fill: #231f20" />
                 <line
                   x1="84.01"
                   y1="29.9"
                   x2="116.25"
                   y2="29.9"
-                  style="
-                    fill: none;
-                    stroke: #231f20;
-                    stroke-miterlimit: 10;
-                    stroke-width: 0.75px;
-                  "
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10; stroke-width: 0.75px"
                 />
                 <polygon
                   points="115.16 33.65 121.63 29.91 115.16 26.16 115.16 33.65"
@@ -919,24 +756,13 @@
                   height="32.76"
                   style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
                 />
-                <line
-                  x1="365.6"
-                  y1="34.19"
-                  x2="403.23"
-                  y2="34.19"
-                  style="fill: #231f20"
-                />
+                <line x1="365.6" y1="34.19" x2="403.23" y2="34.19" style="fill: #231f20" />
                 <line
                   x1="365.6"
                   y1="34.19"
                   x2="397.84"
                   y2="34.19"
-                  style="
-                    fill: none;
-                    stroke: #231f20;
-                    stroke-miterlimit: 10;
-                    stroke-width: 0.75px;
-                  "
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10; stroke-width: 0.75px"
                 />
                 <polygon
                   points="396.75 37.93 403.23 34.19 396.75 30.45 396.75 37.93"
@@ -976,47 +802,25 @@
                 >
                   [1]
                 </text>
-                <line
-                  x1="424.23"
-                  y1="34.19"
-                  x2="384.41"
-                  y2="77.4"
-                  style="fill: #231f20"
-                />
+                <line x1="424.23" y1="34.19" x2="384.41" y2="77.4" style="fill: #231f20" />
                 <line
                   x1="424.23"
                   y1="34.19"
                   x2="388.06"
                   y2="73.44"
-                  style="
-                    fill: none;
-                    stroke: #231f20;
-                    stroke-miterlimit: 10;
-                    stroke-width: 0.75px;
-                  "
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10; stroke-width: 0.75px"
                 />
                 <polygon
                   points="386.05 70.1 384.42 77.4 391.55 75.17 386.05 70.1"
                   style="fill: #231f20"
                 />
-                <line
-                  x1="456.97"
-                  y1="34.19"
-                  x2="470.31"
-                  y2="78.63"
-                  style="fill: #231f20"
-                />
+                <line x1="456.97" y1="34.19" x2="470.31" y2="78.63" style="fill: #231f20" />
                 <line
                   x1="456.97"
                   y1="34.19"
                   x2="468.76"
                   y2="73.47"
-                  style="
-                    fill: none;
-                    stroke: #231f20;
-                    stroke-miterlimit: 10;
-                    stroke-width: 0.75px;
-                  "
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10; stroke-width: 0.75px"
                 />
                 <polygon
                   points="464.87 73.5 470.31 78.63 472.03 71.35 464.87 73.5"
@@ -1136,17 +940,16 @@
           <h3>Destructive and Non-Destructive Operations</h3>
           <p>
             In Java, assignment and function calls
-            <em>copy the values</em> inside simple containers. The original
-            simple containers are left alone!
+            <em>copy the values</em> inside simple containers. The original simple containers are
+            left alone!
           </p>
           <p>
-            <strong>Destructive</strong> functions alter the structured
-            container pointed to by the argument. The changes remain even after
-            we leave the function.
+            <strong>Destructive</strong> functions alter the structured container pointed to by the
+            argument. The changes remain even after we leave the function.
           </p>
           <p>
-            <strong>Non-Destructive</strong> functions do not alter the
-            structured container(s) pointed to by the argument.
+            <strong>Non-Destructive</strong> functions do not alter the structured container(s)
+            pointed to by the argument.
           </p>
           <div class="flex-container">
             <div style="width: 46%">
@@ -1188,24 +991,13 @@
                   height="32.76"
                   style="fill: none; stroke: #231f20; stroke-miterlimit: 10"
                 />
-                <line
-                  x1="65.61"
-                  y1="51.77"
-                  x2="103.23"
-                  y2="51.77"
-                  style="fill: #231f20"
-                />
+                <line x1="65.61" y1="51.77" x2="103.23" y2="51.77" style="fill: #231f20" />
                 <line
                   x1="65.61"
                   y1="51.77"
                   x2="97.85"
                   y2="51.77"
-                  style="
-                    fill: none;
-                    stroke: #231f20;
-                    stroke-miterlimit: 10;
-                    stroke-width: 0.75px;
-                  "
+                  style="fill: none; stroke: #231f20; stroke-miterlimit: 10; stroke-width: 0.75px"
                 />
                 <polygon
                   points="96.75 55.51 103.23 51.77 96.75 48.03 96.75 55.51"
@@ -1329,24 +1121,13 @@
                 >
                   f
                 </text>
-                <line
-                  x1="66"
-                  y1="105.07"
-                  x2="103.23"
-                  y2="57.86"
-                  style="fill: #231f20"
-                />
+                <line x1="66" y1="105.07" x2="103.23" y2="57.86" style="fill: #231f20" />
                 <line
                   x1="66"
                   y1="105.07"
                   x2="99.9"
                   y2="62.09"
-                  style="
-                    fill: none;
-                    stroke: #ed1c24;
-                    stroke-miterlimit: 10;
-                    stroke-width: 0.75px;
-                  "
+                  style="fill: none; stroke: #ed1c24; stroke-miterlimit: 10; stroke-width: 0.75px"
                 />
                 <polygon
                   points="102.16 65.26 103.23 57.86 96.28 60.63 102.16 65.26"
@@ -1371,9 +1152,7 @@
             M.tail.tail = L;
           </code>
         </pre>
-          <p>
-            How does the box and pointer diagram change after each statement?
-          </p>
+          <p>How does the box and pointer diagram change after each statement?</p>
         </section>
         <section>
           <h2>1. Boxes and Pointers (Extra)</h2>

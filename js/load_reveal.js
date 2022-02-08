@@ -36,9 +36,11 @@
 
       chalkboard: {
         readOnly: false,
-        storage: "disc_" + window.location.pathname.split("/")[2],
+        storage: "cs61b_partiallyordered_" + window.location.pathname.split("/")[2],
       },
     });
+
+    console.log(window.location.pathname);
 
     Reveal.on("fragmentshown", (event) => {
       event.fragments.forEach((frag) => {
