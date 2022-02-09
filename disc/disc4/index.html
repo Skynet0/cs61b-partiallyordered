@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Discussion 4 | Ethan's CS 61B Resources</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.2.1/dist/reset.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.2.1/dist/reveal.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/reveal.js@4.2.1/dist/theme/simple.css"
+      id="theme"
+    />
+    <link rel="stylesheet" href="/reveal-plugins/chalkboard/style.css" />
+    <link rel="stylesheet" href="/reveal-plugins/customcontrols/style.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Inconsolata|Roboto:300,400,500|Work+Sans:400,700"
+    />
+    <link rel="stylesheet" href="/css/base.css" />
+    <link rel="stylesheet" href="/css/reveal-base.css" />
+    <link rel="stylesheet" href="/css/mono-code.css" />
+
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.2.1/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.2.1/plugin/highlight/highlight.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/highlightjs-badge@0.1.9/highlightjs-badge.min.js"
+      defer
+    ></script>
+    <script src="/reveal-plugins/chalkboard/plugin.js" defer></script>
+    <script src="/reveal-plugins/customcontrols/plugin.js" defer></script>
+    <script src="/reveal-plugins/menu/menu.js" defer></script>
+    <script src="/js/load_reveal.js" defer></script>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <h1>Discussion 4</h1>
+          <h2>Objects</h2>
+          <aside>Starting at Berkeleytime</aside>
+        </section>
+        <section>
+          <h2>Announcements</h2>
+          <ol>
+            <li>Project 0 due Friday, 2/11</li>
+            <li>
+              No lab, converted to Proj 0 OH! See
+              <a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/lab/lab4/index.html"
+                >lab spec</a
+              >.
+            </li>
+            <li>
+              Optional
+              <a
+                href="https://docs.google.com/forms/d/e/1FAIpQLSfQOANcw-aj63nFod2H3yolQhs4m7u7lnL_WkKKAPnHS3y8_g/viewform?usp=sf_link"
+                >Test 1 accommodations form</a
+              >
+              due Friday, 2/11
+            </li>
+            <li>
+              Exam review sessions (<a href="https://piazza.com/class/kyhxhjauuc26wy?cid=329"
+                >Piazza</a
+              >):
+              <ul>
+                <li>CS 61B Tutors, Friday 2-4</li>
+                <li>CSM, Saturday 10-12</li>
+                <li>HKN, Saturday 2-4</li>
+              </ul>
+            </li>
+            <li>If you want to, you can attend multiple discussion / lab sections!</li>
+          </ol>
+        </section>
+        <section>
+          <h3>Review: Static vs Instance</h3>
+          <pre class="code-pre">
+            <code class="java hljs" style="font-size: 18px;" data-line-numbers data-trim>
+              public class CS61BStudent {
+                public int idNumber;
+                public int grade;
+                public static String professor = "Hilfinger";
+                public CS61BStudent(int id) {
+                  this.idNumber = id;
+                  this.grade = 100;
+                }
+                public void watchLecture() {
+                  // ...
+                }
+                public static String gradeToLetter(int grade) {
+                  // ...
+                }
+              }
+            </code>
+          </pre>
+          <p>
+            <em>Static</em> variables and functions belong to the class as a whole. The
+            <code>professor</code> is a shared characteristic of all <code>CS61BStudent</code>s.
+          </p>
+          <p>
+            <em>Instance</em> variables and functions belong to a particular instance. Each
+            <code>CS61BStudent</code> has its own independent <code>idNumber</code>.
+          </p>
+        </section>
+        <section>
+          <h3>Preview: OOP Inheritance</h3>
+          <a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/disc/discussion4slides.pdf"
+            >Course slides</a
+          >
+          (mine will be done next week)
+        </section>
+        <section>
+          <h1>Worksheet</h1>
+        </section>
+        <section>
+          <h3>1a. Avatar</h3>
+          <pre class="code-pre">
+            <code class="java hljs" data-noescape data-trim style="font-size: 20px;">
+              public class Avatar {
+                public static String electricity;
+                public String fluid;
+            
+                public Avatar(String str1, String str2) {
+                  Avatar.electricity = str1;
+                  this.fluid = str2; 
+                }
+            
+                public static void main(String[] args) {
+                  Avatar foo1 = new Avatar(“one”, “two”);
+                  Avatar foo2 = new Avatar(“three”, “four”);
+                  System.out.println(foo1.electricity + foo1.fluid);
+                  foo1.electricity = “I declare ”;
+                  foo1.fluid = “a thumb war”;
+                  System.out.println(foo2.electricity + foo2.fluid);
+                }
+            }
+            </code>
+          </pre>
+          <p>What's printed after executing <code>main</code>?</p>
+        </section>
+        <section>
+          <h3>1b. Avatar</h3>
+          <pre class="code-pre">
+          <code class="java hljs" data-noescape data-trim style="font-size: 20px;">
+            public class Avatar {
+              public <del style="color: red; opacity: 0.4;">static</del> String electricity;
+              public <span style="color: red;">static</span> String fluid;
+          
+              public Avatar(String str1, String str2) {
+                Avatar.electricity = str1;
+                this.fluid = str2; 
+              }
+          
+              public static void main(String[] args) {
+                Avatar foo1 = new Avatar(“one”, “two”);
+                Avatar foo2 = new Avatar(“three”, “four”);
+                System.out.println(foo1.electricity + foo1.fluid);
+                foo1.electricity = “I declare ”;
+                foo1.fluid = “a thumb war”;
+                System.out.println(foo2.electricity + foo2.fluid);
+              }
+          }
+          </code>
+        </pre>
+          <p>Does this code compile after changing lines 2 and 3?</p>
+        </section>
+        <section>
+          <h3>1c. Avatar</h3>
+          <pre class="code-pre">
+          <code class="java hljs" data-noescape data-trim>
+            public class Avatar {
+              public static String electricity;
+              public String fluid;
+          
+              // New method!
+              public static String getFluid() {
+                return fluid;
+              }
+          
+              // ...
+          }
+          </code>
+        </pre>
+          <p>After adding this method, does the code compile?</p>
+        </section>
+        <section>
+          <h3>2. Static Shock (extra)</h3>
+          <pre class="code-pre">
+            <code class="java hljs" data-noescape data-trim style="font-size: 20px;">
+              public class Shock {
+                public static int bang;
+                public static Shock baby;
+                public Shock() { this.bang = 100; }
+                public Shock(int num) {
+                    this.bang = num;
+                    baby = starter();
+                    this.bang += num;
+                }
+                public static Shock starter() {
+                    Shock gear = new Shock();
+                    return gear;
+                }
+                public static void shrink(Shock statik) {
+                  statik.bang -= 1;
+                }
+                public static void main(String[] args) {
+                    Shock gear = new Shock(200);
+                    System.out.println(gear.bang);    
+                    shrink(gear);
+                    shrink(starter());
+                    System.out.println(gear.bang);    
+                }
+            }            
+            </code>
+          </pre>
+          <p>What's printed after executing <code>main</code>?</p>
+        </section>
+        <section>
+          <h3>3. Reversing an Array</h3>
+          <pre class="code-pre">
+            <code class="java hljs" data-noescape data-trim>
+              /** Destructively reverses A in place. */
+              public static void reverse(int[] A) {
+
+
+
+
+
+
+              }
+            </code>
+          </pre>
+          <p class="fragment">
+            Hint: element <code>0</code> <em>swaps</em> with element <code>N-1</code>, element
+            <code>1</code> swaps with element <code>N-2</code>...
+          </p>
+        </section>
+        <section>
+          <h3>3. Reversing a Diagonal (extra)</h3>
+          <div style="display: flex; align-items: center">
+            <table class="array">
+              <tr>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+                <td>4</td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td>6</td>
+                <td>7</td>
+                <td>8</td>
+              </tr>
+              <tr>
+                <td>9</td>
+                <td>10</td>
+                <td>11</td>
+                <td>12</td>
+              </tr>
+              <tr>
+                <td>13</td>
+                <td>14</td>
+                <td>15</td>
+                <td>16</td>
+              </tr>
+            </table>
+            <p>&rarr;</p>
+            <table class="array">
+              <tr>
+                <td>1</td>
+                <td>2</td>
+                <td style="color: red">9</td>
+                <td>4</td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td style="color: red">6</td>
+                <td>7</td>
+                <td>8</td>
+              </tr>
+              <tr>
+                <td style="color: red">3</td>
+                <td>10</td>
+                <td>11</td>
+                <td>12</td>
+              </tr>
+              <tr>
+                <td>13</td>
+                <td>14</td>
+                <td>15</td>
+                <td>16</td>
+              </tr>
+            </table>
+          </div>
+          <pre class="code-pre">
+            <code class="java hljs" data-noescape data-trim>
+              /** Destructively reverses the items along the diagonal in B */
+              public static void reverseDiagonal(int[][] B, int diagonal) {
+
+
+
+
+
+
+              }
+            </code>
+          </pre>
+
+          <p class="fragment">
+            Hint: diagonal <code>2</code> is a sequence of elements at indices <code>[2][0]</code>,
+            <code>[1][1]</code>, <code>[0][2]</code>.
+          </p>
+        </section>
+        <section>
+          <h3>4. Circular Buffer</h3>
+          <div style="display: flex; align-items: center">
+            <table class="array" style="border: none">
+              <tr>
+                <td>2</td>
+                <td>3</td>
+                <td>4</td>
+                <td>5</td>
+                <td>6</td>
+                <td>7</td>
+                <td style="font-weight: bold; color: red">0</td>
+                <td>1</td>
+              </tr>
+              <tr class="no-border">
+                <td colspan="6"></td>
+                <td>6</td>
+              </tr>
+            </table>
+            <p>&rarr;<br /><span style="visibility: hidden">0</span></p>
+            <table class="array">
+              <tr>
+                <td style="font-weight: bold; color: red">0</td>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+                <td>4</td>
+                <td>5</td>
+                <td>6</td>
+                <td>7</td>
+                <td style="font-weight: bold; color: #0066cc">8</td>
+              </tr>
+              <tr class="no-border">
+                <td><span style="visibility: hidden">0</span></td>
+              </tr>
+            </table>
+          </div>
+          <pre class="code-pre">
+            <code class="java hljs" data-noescape data-trim>
+              public static int[] overflow(int[] A, int i, int k) {
+
+
+
+
+
+
+
+
+
+              }
+            </code>
+          </pre>
+          <p>Use <code>System.arraycopy</code> to copy chunks of the input array!</p>
+        </section>
+        <section>
+          <h3>5. Transposing a 2D Array (extra)</h3>
+          <div style="display: flex; align-items: center">
+            <table class="array">
+              <tr>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+                <td>4</td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td>6</td>
+                <td>7</td>
+                <td>8</td>
+              </tr>
+              <tr>
+                <td>9</td>
+                <td>10</td>
+                <td>11</td>
+                <td>12</td>
+              </tr>
+              <tr>
+                <td>13</td>
+                <td>14</td>
+                <td>15</td>
+                <td>16</td>
+              </tr>
+            </table>
+            <p>&rarr;</p>
+            <table class="array">
+              <tr>
+                <td style="width: 2em">1</td>
+                <td style="width: 2em">5</td>
+                <td>9</td>
+                <td>13</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>6</td>
+                <td>10</td>
+                <td>14</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>7</td>
+                <td>11</td>
+                <td>15</td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>8</td>
+                <td>12</td>
+                <td>16</td>
+              </tr>
+            </table>
+          </div>
+          <pre class="code-pre">
+            <code class="java hljs" data-noescape data-trim>
+              public static int[] overflow(int[] A, int i, int k) {
+
+
+
+
+
+
+
+
+
+              }
+            </code>
+          </pre>
+        </section>
+      </div>
+    </div>
+  </body>
+</html>

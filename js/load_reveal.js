@@ -40,8 +40,6 @@
       },
     });
 
-    console.log(window.location.pathname);
-
     Reveal.on("fragmentshown", (event) => {
       event.fragments.forEach((frag) => {
         (frag.getAttribute("data-entangled-ids") ?? "")

@@ -48,3 +48,16 @@ svg {
 code {
   font-family: "Inconsolata", monospace;
 }
+
+table.array, table.array td {
+  text-align: center;
+  font-family: "Inconsolata", monospace;
+}
+
+table.array td, table.array tbody tr:last-child td {
+  border: 1px solid black;
+}
+
+table.no-border, tr.no-border, tr.no-border > td {
+  border: none !important;
+}
