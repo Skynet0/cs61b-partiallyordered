@@ -78,3 +78,15 @@
   opacity: 0;
   visibility: hidden;
 }
+
+.reveal .slides section .fragment.vanish-out.visible {
+  display: none;
+}
+
+.reveal .slides section .fragment.vanish-in {
+  display: none;
+}
+
+.reveal .slides section .fragment.vanish-in.visible {
+  display: unset;
+}

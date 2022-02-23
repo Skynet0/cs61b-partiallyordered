@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Discussion 6 | Ethan's CS 61B Resources</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.2.1/dist/reset.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.2.1/dist/reveal.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/reveal.js@4.2.1/dist/theme/simple.css"
+      id="theme"
+    />
+    <link rel="stylesheet" href="/reveal-plugins/chalkboard/style.css" />
+    <link rel="stylesheet" href="/reveal-plugins/customcontrols/style.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Inconsolata|Roboto:300,400,500|Work+Sans:400,700"
+    />
+    <link rel="stylesheet" href="/css/base.css" />
+    <link rel="stylesheet" href="/css/reveal-base.css" />
+    <link rel="stylesheet" href="/css/mono-code.css" />
+
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.2.1/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.2.1/plugin/highlight/highlight.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/highlightjs-badge@0.1.9/highlightjs-badge.min.js"
+      defer
+    ></script>
+    <script src="/reveal-plugins/chalkboard/plugin.js" defer></script>
+    <script src="/reveal-plugins/customcontrols/plugin.js" defer></script>
+    <script src="/reveal-plugins/menu/menu.js" defer></script>
+    <script src="/js/load_reveal.js" defer></script>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <h1>Discussion 6</h1>
+          <h2>Packages and Bits</h2>
+          <aside>Starting at Berkeleytime</aside>
+        </section>
+        <section>
+          <h2>Announcements</h2>
+          <ol>
+            <li>Project 1 Checkpoint due Friday, 2/25</li>
+            <li>Lab 6 (part of Enigma) due Friday, 2/25</li>
+            <li>HW 4 due Tuesday, 3/1</li>
+          </ol>
+        </section>
+        <section>
+          <h3>Access Modifiers (in classes)</h3>
+          <table>
+            <thead>
+              <th>Can access from...</th>
+              <th>default</th>
+              <th>private</th>
+              <th>protected</th>
+              <th>public</th>
+            </thead>
+            <tr>
+              <td>Same class</td>
+              <td>Yes</td>
+              <td>Yes</td>
+              <td>Yes</td>
+              <td>Yes</td>
+            </tr>
+            <tr>
+              <td>Subclass in same package</td>
+              <td>Yes</td>
+              <td>No</td>
+              <td>Yes</td>
+              <td>Yes</td>
+            </tr>
+            <tr>
+              <td>Non-subclass in same package</td>
+              <td>Yes</td>
+              <td>No</td>
+              <td>Yes</td>
+              <td>Yes</td>
+            </tr>
+            <tr>
+              <td>Subclass in different package</td>
+              <td>No</td>
+              <td>No</td>
+              <td>Yes</td>
+              <td>Yes</td>
+            </tr>
+            <tr>
+              <td>Non-subclass in same package</td>
+              <td>No</td>
+              <td>No</td>
+              <td>No</td>
+              <td>Yes</td>
+            </tr>
+          </table>
+          <p>"default" is also called <b>package-private</b>.</p>
+        </section>
+        <section>
+          <h3>Bits (Lecture preview)</h3>
+          <p>How do computers represent numbers? In <b>binary</b> (base 2, using 0's and 1's).</p>
+          <p>
+            The prefix <code>0b</code> indicates that the number is binary:<br />
+            <code>0b101 = 4 + 0 + 1</code>
+          </p>
+          <p>Why should I care, when I can just use base 10?</p>
+          <ul>
+            <li class="fragment">Java numbers use a <em>finite</em> amount of bits</li>
+            <li class="fragment">Cool math tricks</li>
+            <li class="fragment">This is what's "under the hood" - 61C!</li>
+          </ul>
+          <p class="fragment">
+            Additional (surplus) reading: Sections 4.1-4.6 of
+            <a href="https://diveintosystems.org/singlepage/#_number_bases_and_unsigned_integers"
+              >Dive into Systems</a
+            >
+          </p>
+        </section>
+        <section>
+          <h1>
+            <a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/disc/discussion6.pdf"
+              >Worksheet</a
+            >
+          </h1>
+        </section>
+        <section>
+          <h3>1. Reduce</h3>
+          <p>See worksheet for skeleton</p>
+          <p>
+            <svg
+              id="Layer_1"
+              data-name="Layer 1"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 248.26 67.21"
+            >
+              <text
+                transform="translate(40.08 9.74)"
+                style="
+                  font-size: 12px;
+                  fill: #231f20;
+                  font-family: Inconsolata-Regular, Inconsolata;
+                "
+              >
+                <!-- prettier-ignore -->
+                <tspan xml:space="preserve">reduce(f, [1, 2,  3,  4,  5])</tspan>
+              </text>
+              <text
+                transform="translate(93.83 24.82)"
+                style="
+                  font-size: 12px;
+                  fill: #231f20;
+                  font-family: Inconsolata-Regular, Inconsolata;
+                "
+              >
+                f(1, 2)
+              </text>
+              <text
+                transform="translate(82.18 36.98)"
+                style="
+                  font-size: 12px;
+                  fill: #231f20;
+                  font-family: Inconsolata-Regular, Inconsolata;
+                "
+                class="fragment"
+              >
+                f(f(1, 2), 3)
+              </text>
+              <text
+                transform="translate(70.08 49.14)"
+                style="
+                  font-size: 12px;
+                  fill: #231f20;
+                  font-family: Inconsolata-Regular, Inconsolata;
+                "
+                class="fragment"
+              >
+                f(f(f(1, 2), 3), 4)
+              </text>
+              <text
+                transform="translate(58.43 62.41)"
+                style="
+                  font-size: 12px;
+                  fill: #231f20;
+                  font-family: Inconsolata-Regular, Inconsolata;
+                "
+                class="fragment"
+              >
+                f(f(f(f(1, 2), 3), 4), 5)
+              </text>
+            </svg>
+          </p>
+        </section>
+        <section>
+          <h4>2. Inheritance Infiltration</h4>
+          <pre class="code-pre">
+            <code class="java hljs" style="font-size: 14pt;" data-noescape data-line-numbers data-trim>
+              public class PasswordChecker {
+                /** Returns true if the provided login and password are correct. */
+                public boolean authenticate(String login, String password) {
+                  // Does some secret authentication stuff...
+                }
+              }
+              public class User {
+                private String username;
+                private String password;
+                public void login(PasswordChecker p) {
+                  p.authenticate(username, password);
+                }
+              }
+            </code>
+          </pre>
+          <pre class="code-pre">
+            <code class="java hljs" style="font-size: 14pt;" data-noescape data-trim>
+              public class PasswordExtractor extends <span class="fragment vanish-out" data-fragment-index="1">_______________</span><span class="fragment vanish-in" data-fragment-index="1">PasswordChecker</span> {
+                String extractedPassword;
+                public String extractPassword(User u) {
+
+
+
+                }
+
+
+
+
+
+              }
+            </code>
+          </pre>
+        </section>
+        <section>
+          <h3>3A. A Bit on Bits</h3>
+          <pre class="code-pre">
+            <code class="java hljs" style="font-size: 20pt;" data-noescape data-line-numbers data-trim>
+              /** Returns whether the ith bit of num is a 1 or not. */
+              public static boolean isBitIOn(int num, int i) {
+                int mask = 1 __________________________________________;
+                return ________________________________________________;
+              }
+            </code>
+          </pre>
+          <p>Relevant bit operations:</p>
+          <ul>
+            <li><code>x & y</code></li>
+            <li><code>x << n</code></li>
+          </ul>
+        </section>
+        <section>
+          <h3>3B. A Bit on Bits</h3>
+          <pre class="code-pre">
+            <code class="java hljs" style="font-size: 20pt;" data-noescape data-line-numbers data-trim>
+              /** Returns the input number but with its ith bit changed to a 1. */
+              public static int turnBitIOn(int num, int i) {
+                int mask = 1 __________________________________________;
+                return ________________________________________________;
+              }
+            </code>
+          </pre>
+          <p>Relevant bit operations:</p>
+          <ul>
+            <li><code>x | y</code></li>
+            <li><code>x << n</code> (again!)</li>
+          </ul>
+        </section>
+      </div>
+    </div>
+  </body>
+</html>
