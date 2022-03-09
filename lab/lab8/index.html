@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lab 3 | Ethan's CS 61B Resources</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.2.1/dist/reset.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.2.1/dist/reveal.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/reveal.js@4.2.1/dist/theme/simple.css"
+      id="theme"
+    />
+    <link rel="stylesheet" href="/reveal-plugins/chalkboard/style.css" />
+    <link rel="stylesheet" href="/reveal-plugins/customcontrols/style.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Inconsolata|Roboto:300,400,500|Work+Sans:400,700"
+    />
+    <link rel="stylesheet" href="/css/base.css" />
+    <link rel="stylesheet" href="/css/reveal-base.css" />
+    <link rel="stylesheet" href="/css/mono-code.css" />
+
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.2.1/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.2.1/plugin/highlight/highlight.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/highlightjs-badge@0.1.9/highlightjs-badge.min.js"
+      defer
+    ></script>
+    <script src="/reveal-plugins/chalkboard/plugin.js" defer></script>
+    <script src="/reveal-plugins/customcontrols/plugin.js" defer></script>
+    <script src="/reveal-plugins/menu/menu.js" defer></script>
+    <script src="/js/load_reveal.js" defer></script>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <h1>Lab 8</h1>
+          <h2>Practical Asymptotic Analysis + TreeMaps</h2>
+          <aside>Starting at Berkeleytime</aside>
+        </section>
+        <section>
+          <h2>Announcements</h2>
+          <ol>
+            <li>Lab 8 due Friday 3/11</li>
+            <li>HW 6 due Tuesday 3/29 (after break)</li>
+          </ol>
+        </section>
+        <section>
+          <h2>Your mental health and wellbeing are more important than this course.</h2>
+        </section>
+        <section>
+          <h3>Academic + Mental Health Resources</h3>
+          <ul>
+            <li>
+              <a href="https://eecs.berkeley.edu/resources/undergrads/support"
+                >Official department academic resources</a
+              >
+            </li>
+            <li>
+              <a href="https://uhs.berkeley.edu/caps"
+                >Counseling and Psychological Services (CAPS)</a
+              >
+            </li>
+            <li>
+              Your mentor TA
+              <ul>
+                <li>We can give advice and chat</li>
+                <li>
+                  But we are not trained counselors, and can refer you to more appropriate resources
+                  if necessary
+                </li>
+              </ul>
+            </li>
+            <li>
+              Life happens - we understand. Need an extension?
+              <ul>
+                <li>Use <a href="http://beacon.datastructur.es">Beacon</a> to requrest one</li>
+                <li>Need additional support? Contact cs61b AT berkeley.edu</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+        <section style="font-size: 26px">
+          <h3>CAPS</h3>
+          <ul>
+            <li>
+              All students will continue to have access to mental health services at UHS
+              <strong>regardless of insurance</strong> and UHS counseling visits are still free of
+              charge.
+            </li>
+            <li>
+              CAPS has a lot of resources:
+              <ul>
+                <li>
+                  Online self-help tools (<a href="https://uhs.berkeley.edu/tao"
+                    >Therapy Assistance Online</a
+                  >) and wellness videos
+                </li>
+                <li>
+                  <a href="https://uhs.berkeley.edu/counseling/lets-talk"
+                    >Let's Talk consultations</a
+                  >
+                </li>
+                <li>Skill-based workshops</li>
+                <li>Support spaces for various communities</li>
+                <li><a href="https://uhs.berkeley.edu/counseling/group">Counseling Groups</a></li>
+                <li>
+                  <a href="https://uhs.berkeley.edu/counseling/individual"
+                    >Individual and couples counseling</a
+                  >
+                </li>
+                <li>Referral to additional support resources on- and off-campus</li>
+              </ul>
+            </li>
+            <li>
+              For students that want to see a counselor, the majority of appointments are now
+              offered the same day.
+            </li>
+            <li>
+              Students are seen for their top-of-mind concerns and given resources, whether at an
+              initial or returning counseling visit.
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h3>How do we measure the "speed" of programs?</h3>
+          <div class="flex-container">
+            <div style="width: 46%" class="fragment">
+              <p>
+                <strong>Algorithmic analysis</strong>: express the "cost" of a program (time, space,
+                etc.) as a <em>function</em> of the inputs.
+              </p>
+              <p>
+                We can use <strong>asymptotics</strong> to compare these cost functions to each
+                other.
+              </p>
+            </div>
+            <div style="width: 46%" class="fragment">
+              <p>
+                <strong>Empirical analysis</strong>: use a clock (or a relevant tool) to measure the
+                cost on different inputs.
+              </p>
+              <p>
+                Depending on how the program is run (computer power, other programs, etc.), can
+                vary!
+              </p>
+              <p>Program to time sorting code: <code>timer.SortTiming</code></p>
+            </div>
+          </div>
+        </section>
+        <section>
+          <h3>Amortized Runtime</h3>
+          <p>
+            Sometimes, we measure costs of a single call to a function. Other times, we're concerned
+            with the <em>average</em> runtime, because the worst-case doesn't occur often. (<a
+              href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/lectures/lect17.pdf"
+              >Lecture 17</a
+            >)
+          </p>
+          <p>Example: dynamic resizing arrays</p>
+          <p>Program to time amortization: <code>timer.AmoritzationTiming</code></p>
+        </section>
+        <section>
+          <h3>TreeMap</h3>
+          <p><em>Whiteboard BST review during lab</em></p>
+        </section>
+        <section>
+          <h3>compareTo</h3>
+          <pre class="code-pre">
+            <code class="hljs java" data-line-numbers data-trim>
+              class A implements Comparable&lt;A&gt; {
+                @Override
+                public int compareTo(A other) { ... }
+              }
+            </code>
+          </pre>
+          <pre class="code-pre">
+            <code class="hljs java" data-line-numbers data-trim>
+              A a1 = new A();
+              A a2 = new A();
+              if (a1.compareTo(a2) < 0) {
+                // a1 < a2
+              } else if (a1.compareTo(a2) > 0) {
+                // a1 > a2
+              } else if (a1.compareTo(a2) == 0) {
+                // a1 == a2
+              }         
+            </code>
+          </pre>
+        </section>
+      </div>
+    </div>
+  </body>
+</html>
